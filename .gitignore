@@ -1,0 +1,82 @@
+## .NET / C#
+bin/
+obj/
+[Bb]uild/
+[Bb]uilds/
+artifacts/
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+coverage/
+coverage.*
+*.nupkg
+*.snupkg
+packages/
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+## ASP.NET / local configuration
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.local.json
+secrets.json
+*.db
+*.db-shm
+*.db-wal
+
+## Visual Studio
+.vs/
+*.vsp
+*.vspx
+*.psess
+*.pidb
+*.svclog
+*.scc
+_ReSharper*/
+*.DotSettings.user
+
+## JetBrains Rider
+.idea/
+*.sln.iml
+
+## VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+## NuGet
+project.lock.json
+project.assets.json
+*.nuget.props
+*.nuget.targets
+.nuget/
+
+## Logs and diagnostics
+logs/
+*.log
+*.tlog
+*.tmp
+*.temp
+
+## OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+## Publish output
+publish/
+*.Publish.xml
+*.pubxml.user
+
+## Docker / compose local overrides
+docker-compose.override.yml
+*.env
+!.env.example
