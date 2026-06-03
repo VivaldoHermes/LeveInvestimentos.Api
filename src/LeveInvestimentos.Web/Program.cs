@@ -1,5 +1,6 @@
 using System;
 using LeveInvestimentos.Core.Domain.Entities;
+using LeveInvestimentos.Infrastructure.Files;
 using LeveInvestimentos.Infrastructure.Persistence;
 using LeveInvestimentos.Infrastructure.Persistence.Seed;
 using Microsoft.AspNetCore.Builder;
@@ -43,6 +44,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddScoped<DatabaseSeeder>();
+builder.Services.AddLocalFileStorage(builder.Configuration, builder.Environment.ContentRootPath);
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

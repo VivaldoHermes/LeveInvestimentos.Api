@@ -110,47 +110,47 @@ Este arquivo transforma o `PLAN.md` em uma lista operacional de acompanhamento.
 
 ## 3. Core - Contratos e Application
 
-- [ ] `[Core]` Criar interface `IUserRepository`. Criterio de pronto: contrato cobre consultas de usuario exigidas pelos services.
-- [ ] `[Core]` Criar interface `ITaskAssignmentRepository`. Criterio de pronto: contrato cobre consultas e persistencia de tarefas exigidas pelos services.
-- [ ] `[Core]` Criar interface `IUnitOfWork`. Criterio de pronto: contrato expoe commit assincrono.
-- [ ] `[Core]` Criar interface `IDomainEventDispatcher`. Criterio de pronto: contrato permite publicar eventos de dominio.
-- [ ] `[Core]` Criar tipo `Error`. Criterio de pronto: erro possui codigo e mensagem.
-- [ ] `[Core]` Criar tipo `Result`. Criterio de pronto: representa sucesso ou falha sem exception de fluxo.
-- [ ] `[Core]` Criar tipo `Result<T>`. Criterio de pronto: representa sucesso com valor ou falha.
-- [ ] `[Core]` Criar command `CreateUserCommand`. Criterio de pronto: command contem dados do cadastro e NAO contem senha (a senha e gerada pelo sistema).
-- [ ] `[Core]` Criar validator de `CreateUserCommand`. Criterio de pronto: campos obrigatorios sao validados, e-mail tem formato valido e `BirthDate` nao e futura.
-- [ ] `[Core]` Criar abstracao `IPasswordGenerator`. Criterio de pronto: contrato gera senha aleatoria forte para o novo usuario sem expor logica no controller.
-- [ ] `[Core]` Criar DTO de usuario para listagem. Criterio de pronto: DTO nao expoe entidade diretamente.
-- [ ] `[Core]` Criar DTO de usuario para detalhes. Criterio de pronto: DTO contem dados necessarios para views.
-- [ ] `[Core]` Criar interface `IUserService`. Criterio de pronto: contrato expoe criacao e consultas usadas pela Web.
-- [ ] `[Core]` Criar `UserService`. Criterio de pronto: service implementa `IUserService`.
-- [ ] `[Core]` Implementar criacao de usuario no `UserService`. Criterio de pronto: fluxo usa Result, gera senha aleatoria via `IPasswordGenerator`, marca `MustChangePassword = true` e nao retorna entidade para Web.
-- [ ] `[Core]` Garantir unicidade de e-mail na criacao de usuario. Criterio de pronto: e-mail duplicado retorna falha via Result e a race condition e tratada (constraint unica + captura de `DbUpdateException`).
-- [ ] `[Core]` Implementar consulta de subordinados no `UserService`. Criterio de pronto: gestor consegue obter lista para atribuicao.
-- [ ] `[Core]` Implementar consulta de usuarios para gestor no `UserService`. Criterio de pronto: lista dados de acompanhamento.
-- [ ] `[Core]` Criar command `CreateTaskAssignmentCommand`. Criterio de pronto: command contem descricao, data limite e subordinado.
-- [ ] `[Core]` Criar validator de `CreateTaskAssignmentCommand`. Criterio de pronto: descricao, data limite e subordinado sao validados.
-- [ ] `[Core]` Criar command `StartTaskAssignmentCommand`. Criterio de pronto: command contem identificador da tarefa e usuario atual.
-- [ ] `[Core]` Criar validator de `StartTaskAssignmentCommand`. Criterio de pronto: identificadores obrigatorios sao validados.
-- [ ] `[Core]` Criar command `CompleteTaskAssignmentCommand`. Criterio de pronto: command contem identificador da tarefa e usuario atual.
-- [ ] `[Core]` Criar validator de `CompleteTaskAssignmentCommand`. Criterio de pronto: identificadores obrigatorios sao validados.
-- [ ] `[Core]` Criar command `CancelTaskAssignmentCommand`. Criterio de pronto: command contem identificador da tarefa e usuario atual.
-- [ ] `[Core]` Criar validator de `CancelTaskAssignmentCommand`. Criterio de pronto: identificadores obrigatorios sao validados.
-- [ ] `[Core]` Criar DTO de tarefa para listagem. Criterio de pronto: DTO contem status, prazo e participantes.
-- [ ] `[Core]` Criar DTO de tarefa para detalhes. Criterio de pronto: DTO contem dados necessarios para view de tarefa.
-- [ ] `[Core]` Criar interface `ITaskAssignmentService`. Criterio de pronto: contrato expoe criar, iniciar, finalizar, cancelar e listar.
-- [ ] `[Core]` Criar `TaskAssignmentService`. Criterio de pronto: service implementa `ITaskAssignmentService`.
-- [ ] `[Core]` Implementar criacao de tarefa no `TaskAssignmentService`. Criterio de pronto: cria aggregate e salva via repository/unit of work.
-- [ ] `[Core]` Validar vinculo gestor-subordinado na criacao de tarefa (anti-IDOR). Criterio de pronto: criar tarefa para `SubordinateId` que nao e subordinado do gestor autenticado retorna falha.
-- [ ] `[Core]` Implementar inicio de tarefa no `TaskAssignmentService`. Criterio de pronto: apenas subordinado responsavel consegue iniciar (Pending para Started).
-- [ ] `[Core]` Implementar finalizacao de tarefa no `TaskAssignmentService`. Criterio de pronto: apenas subordinado responsavel consegue finalizar.
-- [ ] `[Core]` Implementar cancelamento de tarefa no `TaskAssignmentService`. Criterio de pronto: regra de permissao e transicao e aplicada.
-- [ ] `[Core]` Implementar listagem de tarefas para gestor. Criterio de pronto: gestor ve tarefas que criou ou gerencia.
-- [ ] `[Core]` Implementar listagem de tarefas para subordinado. Criterio de pronto: subordinado ve tarefas atribuidas a ele.
-- [ ] `[Core]` Criar abstracao `IEmailSender`. Criterio de pronto: contrato permite envio assíncrono de e-mail.
-- [ ] `[Core]` Criar handler de e-mail para tarefa atribuida. Criterio de pronto: handler traduz evento em mensagem para Outbox.
-- [ ] `[Core]` Criar handler de e-mail para tarefa finalizada. Criterio de pronto: handler traduz evento em mensagem para Outbox.
-- [ ] `[Core]` Criar mensagem de e-mail de credenciais do novo usuario. Criterio de pronto: criacao de usuario enfileira no Outbox um e-mail com o e-mail de acesso e a senha gerada, instruindo troca no primeiro login.
+- [x] `[Core]` Criar interface `IUserRepository`. Criterio de pronto: contrato cobre consultas de usuario exigidas pelos services.
+- [x] `[Core]` Criar interface `ITaskAssignmentRepository`. Criterio de pronto: contrato cobre consultas e persistencia de tarefas exigidas pelos services.
+- [x] `[Core]` Criar interface `IUnitOfWork`. Criterio de pronto: contrato expoe commit assincrono.
+- [x] `[Core]` Criar interface `IDomainEventDispatcher`. Criterio de pronto: contrato permite publicar eventos de dominio.
+- [x] `[Core]` Criar tipo `Error`. Criterio de pronto: erro possui codigo e mensagem.
+- [x] `[Core]` Criar tipo `Result`. Criterio de pronto: representa sucesso ou falha sem exception de fluxo.
+- [x] `[Core]` Criar tipo `Result<T>`. Criterio de pronto: representa sucesso com valor ou falha.
+- [x] `[Core]` Criar command `CreateUserCommand`. Criterio de pronto: command contem dados do cadastro e NAO contem senha (a senha e gerada pelo sistema).
+- [x] `[Core]` Criar validator de `CreateUserCommand`. Criterio de pronto: campos obrigatorios sao validados, e-mail tem formato valido e `BirthDate` nao e futura.
+- [x] `[Core]` Criar abstracao `IPasswordGenerator`. Criterio de pronto: contrato gera senha aleatoria forte para o novo usuario sem expor logica no controller.
+- [x] `[Core]` Criar DTO de usuario para listagem. Criterio de pronto: DTO nao expoe entidade diretamente.
+- [x] `[Core]` Criar DTO de usuario para detalhes. Criterio de pronto: DTO contem dados necessarios para views.
+- [x] `[Core]` Criar interface `IUserService`. Criterio de pronto: contrato expoe criacao e consultas usadas pela Web.
+- [x] `[Core]` Criar `UserService`. Criterio de pronto: service implementa `IUserService`.
+- [x] `[Core]` Implementar criacao de usuario no `UserService`. Criterio de pronto: fluxo usa Result, gera senha aleatoria via `IPasswordGenerator`, marca `MustChangePassword = true` e nao retorna entidade para Web.
+- [x] `[Core]` Garantir unicidade de e-mail na criacao de usuario. Criterio de pronto: e-mail duplicado retorna falha via Result e a race condition e tratada (constraint unica + captura de `DbUpdateException`).
+- [x] `[Core]` Implementar consulta de subordinados no `UserService`. Criterio de pronto: gestor consegue obter lista para atribuicao.
+- [x] `[Core]` Implementar consulta de usuarios para gestor no `UserService`. Criterio de pronto: lista dados de acompanhamento.
+- [x] `[Core]` Criar command `CreateTaskAssignmentCommand`. Criterio de pronto: command contem descricao, data limite e subordinado.
+- [x] `[Core]` Criar validator de `CreateTaskAssignmentCommand`. Criterio de pronto: descricao, data limite e subordinado sao validados.
+- [x] `[Core]` Criar command `StartTaskAssignmentCommand`. Criterio de pronto: command contem identificador da tarefa e usuario atual.
+- [x] `[Core]` Criar validator de `StartTaskAssignmentCommand`. Criterio de pronto: identificadores obrigatorios sao validados.
+- [x] `[Core]` Criar command `CompleteTaskAssignmentCommand`. Criterio de pronto: command contem identificador da tarefa e usuario atual.
+- [x] `[Core]` Criar validator de `CompleteTaskAssignmentCommand`. Criterio de pronto: identificadores obrigatorios sao validados.
+- [x] `[Core]` Criar command `CancelTaskAssignmentCommand`. Criterio de pronto: command contem identificador da tarefa e usuario atual.
+- [x] `[Core]` Criar validator de `CancelTaskAssignmentCommand`. Criterio de pronto: identificadores obrigatorios sao validados.
+- [x] `[Core]` Criar DTO de tarefa para listagem. Criterio de pronto: DTO contem status, prazo e participantes.
+- [x] `[Core]` Criar DTO de tarefa para detalhes. Criterio de pronto: DTO contem dados necessarios para view de tarefa.
+- [x] `[Core]` Criar interface `ITaskAssignmentService`. Criterio de pronto: contrato expoe criar, iniciar, finalizar, cancelar e listar.
+- [x] `[Core]` Criar `TaskAssignmentService`. Criterio de pronto: service implementa `ITaskAssignmentService`.
+- [x] `[Core]` Implementar criacao de tarefa no `TaskAssignmentService`. Criterio de pronto: cria aggregate e salva via repository/unit of work.
+- [x] `[Core]` Validar vinculo gestor-subordinado na criacao de tarefa (anti-IDOR). Criterio de pronto: criar tarefa para `SubordinateId` que nao e subordinado do gestor autenticado retorna falha.
+- [x] `[Core]` Implementar inicio de tarefa no `TaskAssignmentService`. Criterio de pronto: apenas subordinado responsavel consegue iniciar (Pending para Started).
+- [x] `[Core]` Implementar finalizacao de tarefa no `TaskAssignmentService`. Criterio de pronto: apenas subordinado responsavel consegue finalizar.
+- [x] `[Core]` Implementar cancelamento de tarefa no `TaskAssignmentService`. Criterio de pronto: regra de permissao e transicao e aplicada.
+- [x] `[Core]` Implementar listagem de tarefas para gestor. Criterio de pronto: gestor ve tarefas que criou ou gerencia.
+- [x] `[Core]` Implementar listagem de tarefas para subordinado. Criterio de pronto: subordinado ve tarefas atribuidas a ele.
+- [x] `[Core]` Criar abstracao `IEmailSender`. Criterio de pronto: contrato permite envio assíncrono de e-mail.
+- [x] `[Core]` Criar handler de e-mail para tarefa atribuida. Criterio de pronto: handler traduz evento em mensagem para Outbox.
+- [x] `[Core]` Criar handler de e-mail para tarefa finalizada. Criterio de pronto: handler traduz evento em mensagem para Outbox.
+- [x] `[Core]` Criar mensagem de e-mail de credenciais do novo usuario. Criterio de pronto: criacao de usuario enfileira no Outbox um e-mail com o e-mail de acesso e a senha gerada, instruindo troca no primeiro login.
 
 ## 4. Infrastructure - Persistencia
 
@@ -201,14 +201,14 @@ Este arquivo transforma o `PLAN.md` em uma lista operacional de acompanhamento.
 
 ## 6. Infrastructure - Arquivos
 
-- [ ] `[Core]` Criar abstracao `IFileStorage`. Criterio de pronto: contrato permite salvar foto sem depender de MVC.
-- [ ] `[Infra]` Criar `LocalFileStorage`. Criterio de pronto: implementa `IFileStorage`.
-- [ ] `[Infra]` Definir pasta de upload local. Criterio de pronto: destino e `wwwroot/uploads` ou caminho configurado.
-- [ ] `[Infra]` Validar extensao de foto. Criterio de pronto: extensoes nao permitidas sao rejeitadas.
-- [ ] `[Infra]` Validar magic bytes da foto. Criterio de pronto: arquivo cujo conteudo real nao bate com imagem permitida e rejeitado, mesmo com extensao valida.
-- [ ] `[Infra]` Validar tamanho de foto. Criterio de pronto: arquivo acima do limite e rejeitado.
-- [ ] `[Infra]` Gerar nome seguro para foto. Criterio de pronto: nome salvo nao usa nome bruto do usuario.
-- [ ] `[Infra]` Retornar caminho publico da foto salva. Criterio de pronto: Web consegue persistir `ProfilePhotoPath`.
+- [x] `[Core]` Criar abstracao `IFileStorage`. Criterio de pronto: contrato permite salvar foto sem depender de MVC.
+- [x] `[Infra]` Criar `LocalFileStorage`. Criterio de pronto: implementa `IFileStorage`.
+- [x] `[Infra]` Definir pasta de upload local. Criterio de pronto: destino e `wwwroot/uploads` ou caminho configurado.
+- [x] `[Infra]` Validar extensao de foto. Criterio de pronto: extensoes nao permitidas sao rejeitadas.
+- [x] `[Infra]` Validar magic bytes da foto. Criterio de pronto: arquivo cujo conteudo real nao bate com imagem permitida e rejeitado, mesmo com extensao valida.
+- [x] `[Infra]` Validar tamanho de foto. Criterio de pronto: arquivo acima do limite e rejeitado.
+- [x] `[Infra]` Gerar nome seguro para foto. Criterio de pronto: nome salvo nao usa nome bruto do usuario.
+- [x] `[Infra]` Retornar caminho publico da foto salva. Criterio de pronto: Web consegue persistir `ProfilePhotoPath`.
 
 ## 7. Infrastructure - Outbox
 
