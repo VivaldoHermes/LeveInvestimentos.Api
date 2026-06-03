@@ -40,6 +40,11 @@ public sealed class User : IdentityUser<Guid>
 
     public bool MustChangePassword { get; private set; } = true;
 
+    public void MarkPasswordAsChanged()
+    {
+        MustChangePassword = false;
+    }
+
     public static User Create(
         string fullName,
         DateOnly birthDate,

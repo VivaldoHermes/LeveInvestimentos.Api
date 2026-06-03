@@ -60,53 +60,53 @@ Este arquivo transforma o `PLAN.md` em uma lista operacional de acompanhamento.
 
 ## 2. Core - Dominio
 
-- [ ] `[Core]` Criar enum `UserRole`. Criterio de pronto: valores `Manager` e `Subordinate` existem.
-- [ ] `[Core]` Criar enum `TaskStatus`. Criterio de pronto: valores `Pending`, `Started`, `Completed` e `Canceled` existem. `Overdue` nao e status persistido (e calculado por `IsOverdue`).
-- [ ] `[Core]` Criar value object `PhoneNumber`. Criterio de pronto: objeto representa telefone sem depender de EF ou MVC.
-- [ ] `[Core]` Validar formato basico no `PhoneNumber`. Criterio de pronto: valores invalidos nao criam instancia valida.
-- [ ] `[Core]` Criar value object `Address`. Criterio de pronto: propriedades de endereco do plano existem.
-- [ ] `[Core]` Validar campos obrigatorios no `Address`. Criterio de pronto: endereco incompleto nao cria instancia valida.
-- [ ] `[Core]` Criar entidade `User`. Criterio de pronto: entidade representa usuario da aplicacao e integra com Identity.
-- [ ] `[Core]` Adicionar `FullName` em `User`. Criterio de pronto: propriedade existe e aceita persistencia.
-- [ ] `[Core]` Adicionar `BirthDate` em `User`. Criterio de pronto: propriedade existe e aceita persistencia.
-- [ ] `[Core]` Adicionar `Address` em `User`. Criterio de pronto: propriedade usa o value object definido.
-- [ ] `[Core]` Adicionar `LandlinePhone` em `User`. Criterio de pronto: propriedade usa `PhoneNumber` ou formato decidido.
-- [ ] `[Core]` Adicionar `MobilePhone` em `User`. Criterio de pronto: propriedade usa `PhoneNumber` ou formato decidido.
-- [ ] `[Core]` Adicionar `ProfilePhotoPath` em `User`. Criterio de pronto: caminho da foto pode ser persistido.
-- [ ] `[Core]` Adicionar `ManagerId` em `User`. Criterio de pronto: subordinado pode apontar para gestor.
-- [ ] `[Core]` Adicionar flag `MustChangePassword` em `User`. Criterio de pronto: usuario criado por gestor nasce com `true`; gestor padrao do seed nasce com `false`.
-- [ ] `[Core]` Criar entidade `TaskAssignment`. Criterio de pronto: entidade existe sem dependencia de EF ou MVC e nenhuma classe de dominio se chama apenas `Task`.
-- [ ] `[Core]` Adicionar `Id` em `TaskAssignment`. Criterio de pronto: identificador existe.
-- [ ] `[Core]` Adicionar `Description` em `TaskAssignment`. Criterio de pronto: mensagem descritiva pode ser persistida.
-- [ ] `[Core]` Adicionar `DueDate` em `TaskAssignment`. Criterio de pronto: data limite pode ser persistida.
-- [ ] `[Core]` Adicionar `Status` em `TaskAssignment`. Criterio de pronto: usa `TaskStatus`.
-- [ ] `[Core]` Adicionar `ManagerId` em `TaskAssignment`. Criterio de pronto: gestor criador pode ser identificado.
-- [ ] `[Core]` Adicionar `SubordinateId` em `TaskAssignment`. Criterio de pronto: subordinado responsavel pode ser identificado.
-- [ ] `[Core]` Adicionar `CreatedAt` em `TaskAssignment`. Criterio de pronto: data de criacao e definida ao criar.
-- [ ] `[Core]` Adicionar `CompletedAt` em `TaskAssignment`. Criterio de pronto: data pode ficar nula antes da conclusao.
-- [ ] `[Core]` Encapsular setters de `TaskAssignment`. Criterio de pronto: mudancas relevantes passam por metodos de dominio.
-- [ ] `[Core]` Criar factory `TaskAssignment.Create`. Criterio de pronto: factory valida invariantes antes de retornar a atribuicao de tarefa.
-- [ ] `[Core]` Validar mensagem na factory de tarefa. Criterio de pronto: mensagem vazia e rejeitada.
-- [ ] `[Core]` Validar data limite na factory de tarefa. Criterio de pronto: prazo invalido e rejeitado.
-- [ ] `[Core]` Validar gestor na factory de tarefa. Criterio de pronto: criador obrigatorio e validado.
-- [ ] `[Core]` Validar subordinado na factory de tarefa. Criterio de pronto: responsavel obrigatorio e validado.
-- [ ] `[Core]` Criar metodo `Start` em `TaskAssignment`. Criterio de pronto: status muda de `Pending` para `Started`.
-- [ ] `[Core]` Bloquear `Start` em transicao invalida. Criterio de pronto: iniciar tarefa concluida ou cancelada e rejeitado.
-- [ ] `[Core]` Criar metodo `Complete` em `TaskAssignment`. Criterio de pronto: status muda para `Completed` a partir de `Pending` ou `Started`.
-- [ ] `[Core]` Definir `CompletedAt` em `Complete`. Criterio de pronto: data e preenchida ao finalizar.
-- [ ] `[Core]` Bloquear finalizacao de tarefa cancelada. Criterio de pronto: regra impede transicao invalida.
-- [ ] `[Core]` Bloquear finalizacao duplicada. Criterio de pronto: regra impede finalizar tarefa concluida.
-- [ ] `[Core]` Criar metodo `Cancel` em `TaskAssignment`. Criterio de pronto: status muda para `Canceled`.
-- [ ] `[Core]` Bloquear cancelamento de tarefa concluida. Criterio de pronto: regra impede transicao invalida.
-- [ ] `[Core]` Criar metodo `IsOverdue` em `TaskAssignment`. Criterio de pronto: retorna verdadeiro quando `now > DueDate` e tarefa nao esta `Completed` nem `Canceled`. E regra de leitura: nao altera o status persistido nem exige job.
-- [ ] `[Core]` Garantir datas em UTC com `DateTimeOffset`. Criterio de pronto: `CreatedAt`, `DueDate` e `CompletedAt` usam `DateTimeOffset`/UTC, nunca `DateTime.Now` local.
-- [ ] `[Core]` Criar contrato de domain event. Criterio de pronto: eventos de dominio tem tipo comum.
-- [ ] `[Core]` Criar armazenamento interno de domain events na entidade. Criterio de pronto: entidade consegue acumular eventos gerados.
-- [ ] `[Core]` Criar metodo para limpar domain events. Criterio de pronto: dispatcher consegue evitar reprocessamento.
-- [ ] `[Core]` Criar evento `TaskAssignmentCreatedEvent`. Criterio de pronto: evento carrega identificadores necessarios para notificar subordinado.
-- [ ] `[Core]` Emitir `TaskAssignmentCreatedEvent` na criacao da tarefa. Criterio de pronto: factory adiciona evento.
-- [ ] `[Core]` Criar evento `TaskAssignmentCompletedEvent`. Criterio de pronto: evento carrega identificadores necessarios para notificar gestor.
-- [ ] `[Core]` Emitir `TaskAssignmentCompletedEvent` ao finalizar tarefa. Criterio de pronto: metodo `Complete` adiciona evento.
+- [x] `[Core]` Criar enum `UserRole`. Criterio de pronto: valores `Manager` e `Subordinate` existem.
+- [x] `[Core]` Criar enum `TaskStatus`. Criterio de pronto: valores `Pending`, `Started`, `Completed` e `Canceled` existem. `Overdue` nao e status persistido (e calculado por `IsOverdue`).
+- [x] `[Core]` Criar value object `PhoneNumber`. Criterio de pronto: objeto representa telefone sem depender de EF ou MVC.
+- [x] `[Core]` Validar formato basico no `PhoneNumber`. Criterio de pronto: valores invalidos nao criam instancia valida.
+- [x] `[Core]` Criar value object `Address`. Criterio de pronto: propriedades de endereco do plano existem.
+- [x] `[Core]` Validar campos obrigatorios no `Address`. Criterio de pronto: endereco incompleto nao cria instancia valida.
+- [x] `[Core]` Criar entidade `User`. Criterio de pronto: entidade representa usuario da aplicacao e integra com Identity.
+- [x] `[Core]` Adicionar `FullName` em `User`. Criterio de pronto: propriedade existe e aceita persistencia.
+- [x] `[Core]` Adicionar `BirthDate` em `User`. Criterio de pronto: propriedade existe e aceita persistencia.
+- [x] `[Core]` Adicionar `Address` em `User`. Criterio de pronto: propriedade usa o value object definido.
+- [x] `[Core]` Adicionar `LandlinePhone` em `User`. Criterio de pronto: propriedade usa `PhoneNumber` ou formato decidido.
+- [x] `[Core]` Adicionar `MobilePhone` em `User`. Criterio de pronto: propriedade usa `PhoneNumber` ou formato decidido.
+- [x] `[Core]` Adicionar `ProfilePhotoPath` em `User`. Criterio de pronto: caminho da foto pode ser persistido.
+- [x] `[Core]` Adicionar `ManagerId` em `User`. Criterio de pronto: subordinado pode apontar para gestor.
+- [x] `[Core]` Adicionar flag `MustChangePassword` em `User`. Criterio de pronto: usuario criado por gestor nasce com `true`; gestor padrao do seed nasce com `false`.
+- [x] `[Core]` Criar entidade `TaskAssignment`. Criterio de pronto: entidade existe sem dependencia de EF ou MVC e nenhuma classe de dominio se chama apenas `Task`.
+- [x] `[Core]` Adicionar `Id` em `TaskAssignment`. Criterio de pronto: identificador existe.
+- [x] `[Core]` Adicionar `Description` em `TaskAssignment`. Criterio de pronto: mensagem descritiva pode ser persistida.
+- [x] `[Core]` Adicionar `DueDate` em `TaskAssignment`. Criterio de pronto: data limite pode ser persistida.
+- [x] `[Core]` Adicionar `Status` em `TaskAssignment`. Criterio de pronto: usa `TaskStatus`.
+- [x] `[Core]` Adicionar `ManagerId` em `TaskAssignment`. Criterio de pronto: gestor criador pode ser identificado.
+- [x] `[Core]` Adicionar `SubordinateId` em `TaskAssignment`. Criterio de pronto: subordinado responsavel pode ser identificado.
+- [x] `[Core]` Adicionar `CreatedAt` em `TaskAssignment`. Criterio de pronto: data de criacao e definida ao criar.
+- [x] `[Core]` Adicionar `CompletedAt` em `TaskAssignment`. Criterio de pronto: data pode ficar nula antes da conclusao.
+- [x] `[Core]` Encapsular setters de `TaskAssignment`. Criterio de pronto: mudancas relevantes passam por metodos de dominio.
+- [x] `[Core]` Criar factory `TaskAssignment.Create`. Criterio de pronto: factory valida invariantes antes de retornar a atribuicao de tarefa.
+- [x] `[Core]` Validar mensagem na factory de tarefa. Criterio de pronto: mensagem vazia e rejeitada.
+- [x] `[Core]` Validar data limite na factory de tarefa. Criterio de pronto: prazo invalido e rejeitado.
+- [x] `[Core]` Validar gestor na factory de tarefa. Criterio de pronto: criador obrigatorio e validado.
+- [x] `[Core]` Validar subordinado na factory de tarefa. Criterio de pronto: responsavel obrigatorio e validado.
+- [x] `[Core]` Criar metodo `Start` em `TaskAssignment`. Criterio de pronto: status muda de `Pending` para `Started`.
+- [x] `[Core]` Bloquear `Start` em transicao invalida. Criterio de pronto: iniciar tarefa concluida ou cancelada e rejeitado.
+- [x] `[Core]` Criar metodo `Complete` em `TaskAssignment`. Criterio de pronto: status muda para `Completed` a partir de `Pending` ou `Started`.
+- [x] `[Core]` Definir `CompletedAt` em `Complete`. Criterio de pronto: data e preenchida ao finalizar.
+- [x] `[Core]` Bloquear finalizacao de tarefa cancelada. Criterio de pronto: regra impede transicao invalida.
+- [x] `[Core]` Bloquear finalizacao duplicada. Criterio de pronto: regra impede finalizar tarefa concluida.
+- [x] `[Core]` Criar metodo `Cancel` em `TaskAssignment`. Criterio de pronto: status muda para `Canceled`.
+- [x] `[Core]` Bloquear cancelamento de tarefa concluida. Criterio de pronto: regra impede transicao invalida.
+- [x] `[Core]` Criar metodo `IsOverdue` em `TaskAssignment`. Criterio de pronto: retorna verdadeiro quando `now > DueDate` e tarefa nao esta `Completed` nem `Canceled`. E regra de leitura: nao altera o status persistido nem exige job.
+- [x] `[Core]` Garantir datas em UTC com `DateTimeOffset`. Criterio de pronto: `CreatedAt`, `DueDate` e `CompletedAt` usam `DateTimeOffset`/UTC, nunca `DateTime.Now` local.
+- [x] `[Core]` Criar contrato de domain event. Criterio de pronto: eventos de dominio tem tipo comum.
+- [x] `[Core]` Criar armazenamento interno de domain events na entidade. Criterio de pronto: entidade consegue acumular eventos gerados.
+- [x] `[Core]` Criar metodo para limpar domain events. Criterio de pronto: dispatcher consegue evitar reprocessamento.
+- [x] `[Core]` Criar evento `TaskAssignmentCreatedEvent`. Criterio de pronto: evento carrega identificadores necessarios para notificar subordinado.
+- [x] `[Core]` Emitir `TaskAssignmentCreatedEvent` na criacao da tarefa. Criterio de pronto: factory adiciona evento.
+- [x] `[Core]` Criar evento `TaskAssignmentCompletedEvent`. Criterio de pronto: evento carrega identificadores necessarios para notificar gestor.
+- [x] `[Core]` Emitir `TaskAssignmentCompletedEvent` ao finalizar tarefa. Criterio de pronto: metodo `Complete` adiciona evento.
 
 ## 3. Core - Contratos e Application
 
@@ -185,19 +185,19 @@ Este arquivo transforma o `PLAN.md` em uma lista operacional de acompanhamento.
 
 ## 5. Infrastructure - Identity e Seed
 
-- [ ] `[Infra]` Configurar Identity para usar `User`. Criterio de pronto: Identity usa usuario customizado.
-- [ ] `[Infra]` Configurar roles de Identity. Criterio de pronto: roles `Gestor` e `Subordinado` sao suportadas.
-- [ ] `[Infra]` Configurar password policy. Criterio de pronto: senha `teste123` funciona conforme requisito.
-- [ ] `[Infra]` Configurar cookie auth. Criterio de pronto: login MVC autentica via cookie.
-- [ ] `[Infra]` Configurar cookies seguros. Criterio de pronto: cookie de auth usa `HttpOnly`, `SecurePolicy` e `SameSite` adequados.
-- [ ] `[Infra]` Criar `DatabaseSeeder`. Criterio de pronto: classe existe e compila.
-- [ ] `[Infra]` Implementar seed da role `Gestor`. Criterio de pronto: role e criada se nao existir.
-- [ ] `[Infra]` Implementar seed da role `Subordinado`. Criterio de pronto: role e criada se nao existir.
-- [ ] `[Infra]` Implementar seed do usuario gestor padrao. Criterio de pronto: `ti@leveinvestimentos.com.br` e criado se nao existir, com `MustChangePassword = false`.
-- [ ] `[Infra]` Atribuir role `Gestor` ao usuario padrao. Criterio de pronto: usuario padrao autentica como gestor.
-- [ ] `[Infra]` Garantir idempotencia do seeder. Criterio de pronto: executar duas vezes nao duplica dados.
-- [ ] `[Web]` Chamar seeder no startup. Criterio de pronto: aplicacao semeia dados ao iniciar.
-- [ ] `[Docs]` Gerar ou documentar `docs/database/02_seed.sql`. Criterio de pronto: script ou orientacao cobre usuario e roles.
+- [x] `[Infra]` Configurar Identity para usar `User`. Criterio de pronto: Identity usa usuario customizado.
+- [x] `[Infra]` Configurar roles de Identity. Criterio de pronto: roles `Gestor` e `Subordinado` sao suportadas.
+- [x] `[Infra]` Configurar password policy. Criterio de pronto: senha `teste123` funciona conforme requisito.
+- [x] `[Infra]` Configurar cookie auth. Criterio de pronto: login MVC autentica via cookie.
+- [x] `[Infra]` Configurar cookies seguros. Criterio de pronto: cookie de auth usa `HttpOnly`, `SecurePolicy` e `SameSite` adequados.
+- [x] `[Infra]` Criar `DatabaseSeeder`. Criterio de pronto: classe existe e compila.
+- [x] `[Infra]` Implementar seed da role `Gestor`. Criterio de pronto: role e criada se nao existir.
+- [x] `[Infra]` Implementar seed da role `Subordinado`. Criterio de pronto: role e criada se nao existir.
+- [x] `[Infra]` Implementar seed do usuario gestor padrao. Criterio de pronto: `ti@leveinvestimentos.com.br` e criado se nao existir, com `MustChangePassword = false`.
+- [x] `[Infra]` Atribuir role `Gestor` ao usuario padrao. Criterio de pronto: usuario padrao autentica como gestor.
+- [x] `[Infra]` Garantir idempotencia do seeder. Criterio de pronto: executar duas vezes nao duplica dados.
+- [x] `[Web]` Chamar seeder no startup. Criterio de pronto: aplicacao semeia dados ao iniciar.
+- [x] `[Docs]` Gerar ou documentar `docs/database/02_seed.sql`. Criterio de pronto: script ou orientacao cobre usuario e roles.
 
 ## 6. Infrastructure - Arquivos
 

@@ -6,4 +6,14 @@
     <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.8" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LeveInvestimentos.Core\LeveInvestimentos.Core.csproj" />
+    <ProjectReference Include="..\LeveInvestimentos.Infrastructure\LeveInvestimentos.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
