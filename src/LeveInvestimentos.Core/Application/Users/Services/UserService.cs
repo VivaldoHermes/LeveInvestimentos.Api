@@ -36,51 +36,43 @@ public sealed class UserService : IUserService
         CreateUserCommand command,
         CancellationToken cancellationToken = default)
     {
-        var validation = CreateUserCommandValidator.Validate(command, DateOnly.FromDateTime(DateTime.UtcNow));
-        if (validation.IsFailure)
+        User user;
+        try
         {
-            return Result<UserDetailsDto>.Failure(validation.Error);
+            user = User.Create(
+                command.FullName,
+                command.BirthDate,
+                command.Email,
+                new Address(
+                    command.Street,
+                    command.Number,
+                    command.City,
+                    command.State),
+                command.LandlinePhone,
+                command.MobilePhone,
+                command.ProfilePhotoPath,
+                command.Role,
+                DateOnly.FromDateTime(DateTime.UtcNow),
+                command.ManagerId);
+        }
+        catch (ArgumentException ex)
+        {
+            return Result<UserDetailsDto>.Failure(new Error("Users.InvalidUserData", ex.Message));
         }
 
-        var normalizedEmail = command.Email.Trim();
-        if (await _userRepository.ExistsByEmailAsync(normalizedEmail, cancellationToken))
+        if (await _userRepository.ExistsByEmailAsync(user.Email!, cancellationToken))
         {
             return Result<UserDetailsDto>.Failure(new Error("Users.EmailAlreadyExists", "E-mail is already registered."));
         }
 
-        if (command.Role == UserRole.Subordinate)
+        if (user.Role == UserRole.Subordinate)
         {
-            var manager = await _userRepository.GetByIdAsync(command.ManagerId!.Value, cancellationToken);
+            var manager = await _userRepository.GetByIdAsync(user.ManagerId!.Value, cancellationToken);
             if (manager is null || manager.Role != UserRole.Manager)
             {
                 return Result<UserDetailsDto>.Failure(new Error("Users.InvalidManager", "Manager was not found."));
             }
         }
-
-        var user = new User
-        {
-            Id = Guid.NewGuid(),
-            UserName = normalizedEmail,
-            Email = normalizedEmail,
-            FullName = command.FullName.Trim(),
-            BirthDate = command.BirthDate,
-            Address = new Address(
-                command.Street,
-                command.Number,
-                command.Complement,
-                command.Neighborhood,
-                command.City,
-                command.State,
-                command.ZipCode),
-            LandlinePhone = string.IsNullOrWhiteSpace(command.LandlinePhone)
-                ? null
-                : new PhoneNumber(command.LandlinePhone),
-            MobilePhone = new PhoneNumber(command.MobilePhone),
-            ProfilePhotoPath = string.IsNullOrWhiteSpace(command.ProfilePhotoPath) ? null : command.ProfilePhotoPath.Trim(),
-            ManagerId = command.Role == UserRole.Subordinate ? command.ManagerId : null,
-            Role = command.Role,
-            MustChangePassword = true
-        };
 
         var password = _passwordGenerator.Generate();
 
@@ -158,15 +150,12 @@ public sealed class UserService : IUserService
             user.Role,
             user.ManagerId,
             user.Manager?.FullName,
-            user.Address?.Street ?? string.Empty,
-            user.Address?.Number ?? string.Empty,
-            user.Address?.Complement ?? string.Empty,
-            user.Address?.Neighborhood ?? string.Empty,
-            user.Address?.City ?? string.Empty,
-            user.Address?.State ?? string.Empty,
-            user.Address?.ZipCode ?? string.Empty,
-            user.LandlinePhone?.Value,
-            user.MobilePhone?.Value ?? string.Empty,
+            user.Address.Street,
+            user.Address.Number,
+            user.Address.City,
+            user.Address.State,
+            user.LandlinePhone.Value,
+            user.MobilePhone.Value,
             user.ProfilePhotoPath,
             user.MustChangePassword);
     }
