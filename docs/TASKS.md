@@ -154,34 +154,34 @@ Este arquivo transforma o `PLAN.md` em uma lista operacional de acompanhamento.
 
 ## 4. Infrastructure - Persistencia
 
-- [ ] `[Infra]` Adicionar pacotes EF Core necessarios. Criterio de pronto: projeto restaura pacotes de SQL Server e migrations.
-- [ ] `[Infra]` Adicionar pacotes Identity necessarios. Criterio de pronto: projeto suporta `IdentityDbContext`.
-- [ ] `[Infra]` Criar `ApplicationDbContext`. Criterio de pronto: contexto compila.
-- [ ] `[Infra]` Herdar `ApplicationDbContext` de `IdentityDbContext`. Criterio de pronto: Identity usa `User` e chave `Guid`.
-- [ ] `[Infra]` Adicionar `DbSet<TaskAssignment>`. Criterio de pronto: tarefa entra no modelo EF.
-- [ ] `[Infra]` Adicionar `DbSet<OutboxMessage>`. Criterio de pronto: Outbox entra no modelo EF.
-- [ ] `[Infra]` Criar configuration de `User`. Criterio de pronto: propriedades extras sao configuradas.
-- [ ] `[Infra]` Configurar `Address` owned em `User`. Criterio de pronto: colunas de endereco aparecem no modelo.
-- [ ] `[Infra]` Configurar telefones de `User`. Criterio de pronto: telefone fixo e celular persistem corretamente.
-- [ ] `[Infra]` Configurar relacionamento gestor-subordinado. Criterio de pronto: `ManagerId` e navegacoes funcionam.
-- [ ] `[Infra]` Criar configuration de `TaskAssignment`. Criterio de pronto: campos, tamanhos e relacoes sao configurados.
-- [ ] `[Infra]` Configurar relacao tarefa-gestor. Criterio de pronto: `ManagerId` referencia usuario gestor.
-- [ ] `[Infra]` Configurar relacao tarefa-subordinado. Criterio de pronto: `SubordinateId` referencia usuario subordinado.
-- [ ] `[Infra]` Criar `UserRepository`. Criterio de pronto: implementa `IUserRepository`.
-- [ ] `[Infra]` Implementar consulta por id no `UserRepository`. Criterio de pronto: retorna usuario esperado.
-- [ ] `[Infra]` Implementar consulta de subordinados no `UserRepository`. Criterio de pronto: filtra por gestor.
-- [ ] `[Infra]` Implementar consulta de usuarios no `UserRepository`. Criterio de pronto: retorna dados para gestor.
-- [ ] `[Infra]` Criar `TaskAssignmentRepository`. Criterio de pronto: implementa `ITaskAssignmentRepository`.
-- [ ] `[Infra]` Implementar add de tarefa no `TaskAssignmentRepository`. Criterio de pronto: tarefa nova entra no tracking.
-- [ ] `[Infra]` Implementar consulta por id no `TaskAssignmentRepository`. Criterio de pronto: retorna tarefa esperada.
-- [ ] `[Infra]` Implementar listagem de tarefas por gestor no `TaskAssignmentRepository`. Criterio de pronto: consulta filtra corretamente.
-- [ ] `[Infra]` Implementar listagem de tarefas por subordinado no `TaskAssignmentRepository`. Criterio de pronto: consulta filtra corretamente.
-- [ ] `[Infra]` Implementar filtro opcional por status no `TaskAssignmentRepository`. Criterio de pronto: status filtra quando informado.
-- [ ] `[Infra]` Criar `UnitOfWork`. Criterio de pronto: implementa `IUnitOfWork`.
-- [ ] `[Infra]` Implementar commit assincrono no `UnitOfWork`. Criterio de pronto: chama `SaveChangesAsync`.
-- [ ] `[Infra]` Integrar domain events ao save. Criterio de pronto: eventos gerados sao coletados antes do commit final.
-- [ ] `[Infra]` Criar migration inicial. Criterio de pronto: migration compila.
-- [ ] `[Docs]` Gerar script `docs/database/01_schema.sql`. Criterio de pronto: script reflete migration inicial.
+- [x] `[Infra]` Adicionar pacotes EF Core necessarios. Criterio de pronto: projeto restaura pacotes de SQL Server e migrations.
+- [x] `[Infra]` Adicionar pacotes Identity necessarios. Criterio de pronto: projeto suporta `IdentityDbContext`.
+- [x] `[Infra]` Criar `ApplicationDbContext`. Criterio de pronto: contexto compila.
+- [x] `[Infra]` Herdar `ApplicationDbContext` de `IdentityDbContext`. Criterio de pronto: Identity usa `User` e chave `Guid`.
+- [x] `[Infra]` Adicionar `DbSet<TaskAssignment>`. Criterio de pronto: tarefa entra no modelo EF.
+- [x] `[Infra]` Adicionar `DbSet<OutboxMessage>`. Criterio de pronto: Outbox entra no modelo EF.
+- [x] `[Infra]` Criar configuration de `User`. Criterio de pronto: propriedades extras sao configuradas.
+- [x] `[Infra]` Configurar `Address` owned em `User`. Criterio de pronto: colunas de endereco aparecem no modelo.
+- [x] `[Infra]` Configurar telefones de `User`. Criterio de pronto: telefone fixo e celular persistem corretamente.
+- [x] `[Infra]` Configurar relacionamento gestor-subordinado. Criterio de pronto: `ManagerId` e navegacoes funcionam.
+- [x] `[Infra]` Criar configuration de `TaskAssignment`. Criterio de pronto: campos, tamanhos e relacoes sao configurados.
+- [x] `[Infra]` Configurar relacao tarefa-gestor. Criterio de pronto: `ManagerId` referencia usuario gestor.
+- [x] `[Infra]` Configurar relacao tarefa-subordinado. Criterio de pronto: `SubordinateId` referencia usuario subordinado.
+- [x] `[Infra]` Criar `UserRepository`. Criterio de pronto: implementa `IUserRepository`.
+- [x] `[Infra]` Implementar consulta por id no `UserRepository`. Criterio de pronto: retorna usuario esperado.
+- [x] `[Infra]` Implementar consulta de subordinados no `UserRepository`. Criterio de pronto: filtra por gestor.
+- [x] `[Infra]` Implementar consulta de usuarios no `UserRepository`. Criterio de pronto: retorna dados para gestor.
+- [x] `[Infra]` Criar `TaskAssignmentRepository`. Criterio de pronto: implementa `ITaskAssignmentRepository`.
+- [x] `[Infra]` Implementar add de tarefa no `TaskAssignmentRepository`. Criterio de pronto: tarefa nova entra no tracking.
+- [x] `[Infra]` Implementar consulta por id no `TaskAssignmentRepository`. Criterio de pronto: retorna tarefa esperada.
+- [x] `[Infra]` Implementar listagem de tarefas por gestor no `TaskAssignmentRepository`. Criterio de pronto: consulta filtra corretamente.
+- [x] `[Infra]` Implementar listagem de tarefas por subordinado no `TaskAssignmentRepository`. Criterio de pronto: consulta filtra corretamente.
+- [x] `[Infra]` Implementar filtro opcional por status no `TaskAssignmentRepository`. Criterio de pronto: status filtra quando informado.
+- [x] `[Infra]` Criar `UnitOfWork`. Criterio de pronto: implementa `IUnitOfWork`.
+- [x] `[Infra]` Implementar commit assincrono no `UnitOfWork`. Criterio de pronto: chama `SaveChangesAsync`.
+- [x] `[Infra]` Integrar domain events ao save. Criterio de pronto: eventos gerados sao coletados antes do commit final.
+- [x] `[Infra]` Criar migration inicial. Criterio de pronto: migration compila.
+- [x] `[Docs]` Gerar script `docs/database/01_schema.sql`. Criterio de pronto: script reflete migration inicial.
 
 ## 5. Infrastructure - Identity e Seed
 
