@@ -20,7 +20,6 @@ public static class FileStorageServiceCollectionExtensions
         services.PostConfigure<LocalFileStorageOptions>(options =>
             NormalizeUploadRootPath(options, contentRootPath));
 
-        services.AddScoped<IImageFileValidator, ImageFileValidator>();
         services.AddScoped<IFileStorage, LocalFileStorage>();
 
         return services;

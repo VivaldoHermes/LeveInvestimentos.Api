@@ -201,14 +201,17 @@ Este arquivo transforma o `PLAN.md` em uma lista operacional de acompanhamento.
 
 ## 6. Infrastructure - Arquivos
 
-- [x] `[Core]` Criar abstracao `IFileStorage`. Criterio de pronto: contrato permite salvar foto sem depender de MVC.
-- [x] `[Infra]` Criar `LocalFileStorage`. Criterio de pronto: implementa `IFileStorage`.
+Objetivo da camada: receber o arquivo bruto vindo da Web, validar, salvar no storage configurado e devolver apenas os dados persistiveis do arquivo. O dominio nao faz upload nem conhece `IFormFile`; ele recebe, no maximo, o path publico que sera gravado em `User.ProfilePhotoPath`.
+
+- [x] `[Core]` Criar abstracao central `IFileStorage`. Criterio de pronto: contrato recebe `Stream`, nome original e content type, sem depender de MVC.
+- [x] `[Core]` Criar retorno `StoredFile`. Criterio de pronto: retorno contem `PublicUrl`, `StorageKey`, `ContentType` e `SizeBytes`.
+- [x] `[Infra]` Criar implementacao central `LocalFileStorage`. Criterio de pronto: implementa `IFileStorage` e orquestra validacao, escrita fisica e retorno do path publico.
 - [x] `[Infra]` Definir pasta de upload local. Criterio de pronto: destino e `wwwroot/uploads` ou caminho configurado.
-- [x] `[Infra]` Validar extensao de foto. Criterio de pronto: extensoes nao permitidas sao rejeitadas.
-- [x] `[Infra]` Validar magic bytes da foto. Criterio de pronto: arquivo cujo conteudo real nao bate com imagem permitida e rejeitado, mesmo com extensao valida.
-- [x] `[Infra]` Validar tamanho de foto. Criterio de pronto: arquivo acima do limite e rejeitado.
+- [x] `[Infra]` Validar extensao de foto dentro do fluxo de storage. Criterio de pronto: extensoes nao permitidas sao rejeitadas antes da escrita.
+- [x] `[Infra]` Validar magic bytes da foto dentro do fluxo de storage. Criterio de pronto: arquivo cujo conteudo real nao bate com imagem permitida e rejeitado, mesmo com extensao valida.
+- [x] `[Infra]` Validar tamanho de foto dentro do fluxo de storage. Criterio de pronto: arquivo acima do limite e rejeitado sem ser salvo.
 - [x] `[Infra]` Gerar nome seguro para foto. Criterio de pronto: nome salvo nao usa nome bruto do usuario.
-- [x] `[Infra]` Retornar caminho publico da foto salva. Criterio de pronto: Web consegue persistir `ProfilePhotoPath`.
+- [x] `[Infra]` Retornar caminho publico da foto salva. Criterio de pronto: Web/Application conseguem persistir `StoredFile.PublicUrl` em `ProfilePhotoPath`.
 
 ## 7. Infrastructure - Outbox
 
