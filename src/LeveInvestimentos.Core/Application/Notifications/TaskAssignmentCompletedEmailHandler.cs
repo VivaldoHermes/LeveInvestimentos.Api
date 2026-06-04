@@ -9,12 +9,12 @@ namespace LeveInvestimentos.Core.Application.Notifications;
 public sealed class TaskAssignmentCompletedEmailHandler
 {
     private readonly IUserRepository _userRepository;
-    private readonly IEmailSender _emailSender;
+    private readonly IEmailOutbox _emailOutbox;
 
-    public TaskAssignmentCompletedEmailHandler(IUserRepository userRepository, IEmailSender emailSender)
+    public TaskAssignmentCompletedEmailHandler(IUserRepository userRepository, IEmailOutbox emailOutbox)
     {
         _userRepository = userRepository;
-        _emailSender = emailSender;
+        _emailOutbox = emailOutbox;
     }
 
     public async Task<Result> HandleAsync(
@@ -28,7 +28,7 @@ public sealed class TaskAssignmentCompletedEmailHandler
         }
 
         var body = $"Tarefa finalizada: {domainEvent.Description}. Finalizada em: {domainEvent.CompletedAt:dd/MM/yyyy HH:mm}.";
-        await _emailSender.SendAsync(manager.Email, "Tarefa finalizada", body, cancellationToken);
+        await _emailOutbox.EnqueueAsync(manager.Email, "Tarefa finalizada", body, cancellationToken);
 
         return Result.Success();
     }

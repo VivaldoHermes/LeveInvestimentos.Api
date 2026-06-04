@@ -76,12 +76,13 @@ namespace LeveInvestimentos.Infrastructure.Persistence.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PayloadJson = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OccurredAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ProcessedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     Attempts = table.Column<int>(type: "int", nullable: false),
-                    LastError = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true)
+                    LastError = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
+                    NextAttemptAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -279,6 +280,11 @@ namespace LeveInvestimentos.Infrastructure.Persistence.Migrations
                 name: "IX_OutboxMessages_ProcessedAt",
                 table: "OutboxMessages",
                 column: "ProcessedAt");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OutboxMessages_NextAttemptAt",
+                table: "OutboxMessages",
+                column: "NextAttemptAt");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TaskAssignments_ManagerId",

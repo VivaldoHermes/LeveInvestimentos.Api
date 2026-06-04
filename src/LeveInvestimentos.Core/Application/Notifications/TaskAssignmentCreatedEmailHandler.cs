@@ -9,12 +9,12 @@ namespace LeveInvestimentos.Core.Application.Notifications;
 public sealed class TaskAssignmentCreatedEmailHandler
 {
     private readonly IUserRepository _userRepository;
-    private readonly IEmailSender _emailSender;
+    private readonly IEmailOutbox _emailOutbox;
 
-    public TaskAssignmentCreatedEmailHandler(IUserRepository userRepository, IEmailSender emailSender)
+    public TaskAssignmentCreatedEmailHandler(IUserRepository userRepository, IEmailOutbox emailOutbox)
     {
         _userRepository = userRepository;
-        _emailSender = emailSender;
+        _emailOutbox = emailOutbox;
     }
 
     public async Task<Result> HandleAsync(
@@ -28,7 +28,7 @@ public sealed class TaskAssignmentCreatedEmailHandler
         }
 
         var body = $"Nova tarefa atribuida: {domainEvent.Description}. Prazo: {domainEvent.DueDate:dd/MM/yyyy HH:mm}.";
-        await _emailSender.SendAsync(subordinate.Email, "Nova tarefa atribuida", body, cancellationToken);
+        await _emailOutbox.EnqueueAsync(subordinate.Email, "Nova tarefa atribuida", body, cancellationToken);
 
         return Result.Success();
     }

@@ -7,24 +7,24 @@ public sealed class OutboxMessage
     private OutboxMessage()
     {
         Type = string.Empty;
-        Content = string.Empty;
+        PayloadJson = string.Empty;
     }
 
-    public OutboxMessage(string type, string content, DateTimeOffset occurredAt)
+    public OutboxMessage(string type, string payloadJson, DateTimeOffset occurredAt)
     {
         if (string.IsNullOrWhiteSpace(type))
         {
             throw new ArgumentException("Outbox message type is required.", nameof(type));
         }
 
-        if (string.IsNullOrWhiteSpace(content))
+        if (string.IsNullOrWhiteSpace(payloadJson))
         {
-            throw new ArgumentException("Outbox message content is required.", nameof(content));
+            throw new ArgumentException("Outbox message payload is required.", nameof(payloadJson));
         }
 
         Id = Guid.NewGuid();
         Type = type.Trim();
-        Content = content.Trim();
+        PayloadJson = payloadJson.Trim();
         OccurredAt = occurredAt.Offset == TimeSpan.Zero ? occurredAt : occurredAt.ToUniversalTime();
         CreatedAt = DateTimeOffset.UtcNow;
     }
@@ -33,7 +33,7 @@ public sealed class OutboxMessage
 
     public string Type { get; private set; }
 
-    public string Content { get; private set; }
+    public string PayloadJson { get; private set; }
 
     public DateTimeOffset OccurredAt { get; private set; }
 
@@ -45,14 +45,22 @@ public sealed class OutboxMessage
 
     public string? LastError { get; private set; }
 
+    public DateTimeOffset? NextAttemptAt { get; private set; }
+
     public void MarkProcessed(DateTimeOffset processedAt)
     {
         ProcessedAt = processedAt.Offset == TimeSpan.Zero ? processedAt : processedAt.ToUniversalTime();
+        LastError = null;
+        NextAttemptAt = null;
     }
 
-    public void RegisterFailure(string error)
+    public void RegisterFailure(string error, DateTimeOffset failedAt)
     {
         Attempts++;
         LastError = string.IsNullOrWhiteSpace(error) ? null : error.Trim();
+
+        var normalizedFailedAt = failedAt.Offset == TimeSpan.Zero ? failedAt : failedAt.ToUniversalTime();
+        var delaySeconds = Math.Min(Math.Pow(2, Attempts) * 30, 300);
+        NextAttemptAt = normalizedFailedAt.AddSeconds(delaySeconds);
     }
 }

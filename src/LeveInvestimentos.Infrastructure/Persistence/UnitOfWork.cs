@@ -30,8 +30,6 @@ public sealed class UnitOfWork : IUnitOfWork
             .SelectMany(entity => entity.DomainEvents)
             .ToArray();
 
-        var result = await _dbContext.SaveChangesAsync(cancellationToken);
-
         if (domainEvents.Length > 0)
         {
             await _domainEventDispatcher.DispatchAsync(domainEvents, cancellationToken);
@@ -42,6 +40,6 @@ public sealed class UnitOfWork : IUnitOfWork
             }
         }
 
-        return result;
+        return await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }

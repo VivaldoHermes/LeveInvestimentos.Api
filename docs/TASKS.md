@@ -215,19 +215,19 @@ Objetivo da camada: receber o arquivo bruto vindo da Web, validar, salvar no sto
 
 ## 7. Infrastructure - Outbox
 
-- [ ] `[Infra]` Criar entidade `OutboxMessage`. Criterio de pronto: possui `Id`, `Type`, `PayloadJson`, `OccurredAt`, `ProcessedAt`, `Attempts` e `LastError`.
-- [ ] `[Infra]` Criar configuration de `OutboxMessage`. Criterio de pronto: campos e indices essenciais sao configurados.
-- [ ] `[Infra]` Criar repositorio ou acesso de escrita para Outbox. Criterio de pronto: handlers conseguem enfileirar mensagens.
-- [ ] `[Infra]` Serializar payload de evento para Outbox. Criterio de pronto: mensagem contem dados necessarios para envio.
-- [ ] `[Infra]` Gravar Outbox na mesma transacao da tarefa. Criterio de pronto: tarefa e mensagem sao persistidas juntas.
-- [ ] `[Infra]` Criar `OutboxDispatcherService`. Criterio de pronto: background service compila.
-- [ ] `[Infra]` Resolver dependencias por scope no dispatcher. Criterio de pronto: cada ciclo cria um scope via `IServiceScopeFactory` para obter `DbContext`/`IEmailSender` (evita captive dependency em singleton).
-- [ ] `[Infra]` Implementar busca de mensagens pendentes no dispatcher. Criterio de pronto: apenas mensagens sem `ProcessadoEm` sao processadas.
-- [ ] `[Infra]` Implementar marcacao de mensagem processada. Criterio de pronto: `ProcessedAt` e preenchido apos sucesso.
-- [ ] `[Infra]` Implementar incremento de tentativas. Criterio de pronto: falha aumenta contador.
-- [ ] `[Infra]` Implementar registro de ultimo erro. Criterio de pronto: falha salva mensagem de erro.
-- [ ] `[Infra]` Implementar intervalo entre ciclos. Criterio de pronto: dispatcher nao roda em loop quente.
-- [ ] `[Infra]` Implementar backoff simples. Criterio de pronto: mensagens com falha nao sao reprocessadas imediatamente sem criterio.
+- [x] `[Infra]` Criar entidade `OutboxMessage`. Criterio de pronto: possui `Id`, `Type`, `PayloadJson`, `OccurredAt`, `ProcessedAt`, `Attempts` e `LastError`.
+- [x] `[Infra]` Criar configuration de `OutboxMessage`. Criterio de pronto: campos e indices essenciais sao configurados.
+- [x] `[Infra]` Criar repositorio ou acesso de escrita para Outbox. Criterio de pronto: handlers conseguem enfileirar mensagens.
+- [x] `[Infra]` Serializar payload de evento para Outbox. Criterio de pronto: mensagem contem dados necessarios para envio.
+- [x] `[Infra]` Gravar Outbox na mesma transacao da tarefa. Criterio de pronto: tarefa e mensagem sao persistidas juntas.
+- [x] `[Infra]` Criar `OutboxDispatcherService`. Criterio de pronto: background service compila.
+- [x] `[Infra]` Resolver dependencias por scope no dispatcher. Criterio de pronto: cada ciclo cria um scope via `IServiceScopeFactory` para obter `DbContext`/`IEmailSender` (evita captive dependency em singleton).
+- [x] `[Infra]` Implementar busca de mensagens pendentes no dispatcher. Criterio de pronto: apenas mensagens sem `ProcessadoEm` sao processadas.
+- [x] `[Infra]` Implementar marcacao de mensagem processada. Criterio de pronto: `ProcessedAt` e preenchido apos sucesso.
+- [x] `[Infra]` Implementar incremento de tentativas. Criterio de pronto: falha aumenta contador.
+- [x] `[Infra]` Implementar registro de ultimo erro. Criterio de pronto: falha salva mensagem de erro.
+- [x] `[Infra]` Implementar intervalo entre ciclos. Criterio de pronto: dispatcher nao roda em loop quente.
+- [x] `[Infra]` Implementar backoff simples. Criterio de pronto: mensagens com falha nao sao reprocessadas imediatamente sem criterio.
 
 ## 8. Infrastructure - E-mail
 

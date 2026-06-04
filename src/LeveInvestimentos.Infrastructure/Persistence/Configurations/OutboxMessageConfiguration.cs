@@ -16,7 +16,7 @@ public sealed class OutboxMessageConfiguration : IEntityTypeConfiguration<Outbox
             .HasMaxLength(500)
             .IsRequired();
 
-        builder.Property(message => message.Content)
+        builder.Property(message => message.PayloadJson)
             .IsRequired();
 
         builder.Property(message => message.OccurredAt)
@@ -29,5 +29,6 @@ public sealed class OutboxMessageConfiguration : IEntityTypeConfiguration<Outbox
             .HasMaxLength(2000);
 
         builder.HasIndex(message => message.ProcessedAt);
+        builder.HasIndex(message => message.NextAttemptAt);
     }
 }

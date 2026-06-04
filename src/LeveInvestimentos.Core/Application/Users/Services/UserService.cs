@@ -18,18 +18,18 @@ public sealed class UserService : IUserService
     private readonly IUserRepository _userRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IPasswordGenerator _passwordGenerator;
-    private readonly IEmailSender _emailSender;
+    private readonly IEmailOutbox _emailOutbox;
 
     public UserService(
         IUserRepository userRepository,
         IUnitOfWork unitOfWork,
         IPasswordGenerator passwordGenerator,
-        IEmailSender emailSender)
+        IEmailOutbox emailOutbox)
     {
         _userRepository = userRepository;
         _unitOfWork = unitOfWork;
         _passwordGenerator = passwordGenerator;
-        _emailSender = emailSender;
+        _emailOutbox = emailOutbox;
     }
 
     public async Task<Result<UserDetailsDto>> CreateAsync(
@@ -77,8 +77,8 @@ public sealed class UserService : IUserService
         var password = _passwordGenerator.Generate();
 
         await _userRepository.AddAsync(user, password, cancellationToken);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
         await SendCredentialsEmailAsync(user, password, cancellationToken);
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result<UserDetailsDto>.Success(MapDetails(user));
     }
@@ -125,7 +125,7 @@ public sealed class UserService : IUserService
     private Task SendCredentialsEmailAsync(User user, string password, CancellationToken cancellationToken)
     {
         var body = $"Acesso criado para {user.FullName}. E-mail: {user.Email}. Senha temporaria: {password}. Troque a senha no primeiro login.";
-        return _emailSender.SendAsync(user.Email!, "Credenciais de acesso", body, cancellationToken);
+        return _emailOutbox.EnqueueAsync(user.Email!, "Credenciais de acesso", body, cancellationToken);
     }
 
     private static UserListItemDto MapListItem(User user)
