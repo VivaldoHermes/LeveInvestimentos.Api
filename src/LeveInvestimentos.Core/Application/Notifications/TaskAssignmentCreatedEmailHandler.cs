@@ -27,7 +27,13 @@ public sealed class TaskAssignmentCreatedEmailHandler
             return Result.Failure(new Error("Notifications.SubordinateEmailNotFound", "Subordinate e-mail was not found."));
         }
 
-        var body = $"Nova tarefa atribuida: {domainEvent.Description}. Prazo: {domainEvent.DueDate:dd/MM/yyyy HH:mm}.";
+        var body = string.Join(
+            System.Environment.NewLine,
+            "Nova tarefa atribuida.",
+            string.Empty,
+            $"Mensagem: {domainEvent.Description}",
+            $"Prazo: {domainEvent.DueDate:dd/MM/yyyy HH:mm}");
+
         await _emailOutbox.EnqueueAsync(subordinate.Email, "Nova tarefa atribuida", body, cancellationToken);
 
         return Result.Success();

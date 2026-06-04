@@ -1,5 +1,7 @@
 using System;
 using LeveInvestimentos.Core.Domain.Entities;
+using LeveInvestimentos.Infrastructure;
+using LeveInvestimentos.Infrastructure.BackgroundServices;
 using LeveInvestimentos.Infrastructure.Files;
 using LeveInvestimentos.Infrastructure.Persistence;
 using LeveInvestimentos.Infrastructure.Persistence.Seed;
@@ -44,7 +46,9 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddScoped<DatabaseSeeder>();
+builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddLocalFileStorage(builder.Configuration, builder.Environment.ContentRootPath);
+builder.Services.AddHostedService<OutboxDispatcherService>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

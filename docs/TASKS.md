@@ -231,16 +231,16 @@ Objetivo da camada: receber o arquivo bruto vindo da Web, validar, salvar no sto
 
 ## 8. Infrastructure - E-mail
 
-- [ ] `[Infra]` Adicionar pacote MailKit. Criterio de pronto: projeto restaura pacote.
-- [ ] `[Infra]` Criar `EmailOptions`. Criterio de pronto: host, porta, usuario, senha, remetente e SSL estao representados.
-- [ ] `[Infra]` Configurar options de e-mail no DI. Criterio de pronto: `EmailOptions` recebe configuracao do appsettings.
-- [ ] `[Infra]` Criar `SmtpEmailSender`. Criterio de pronto: implementa `IEmailSender`.
-- [ ] `[Infra]` Implementar envio SMTP. Criterio de pronto: sender envia destinatario, assunto e corpo.
-- [ ] `[Infra]` Implementar template de tarefa atribuida. Criterio de pronto: e-mail informa mensagem e prazo.
-- [ ] `[Infra]` Implementar template de tarefa finalizada. Criterio de pronto: e-mail informa tarefa finalizada e subordinado.
-- [ ] `[Infra]` Conectar dispatcher ao `IEmailSender`. Criterio de pronto: Outbox pendente dispara envio.
-- [ ] `[Web]` Adicionar configuracao de e-mail em `appsettings.json`. Criterio de pronto: chaves existem sem segredos reais.
-- [ ] `[Docs]` Documentar uso de User Secrets para SMTP. Criterio de pronto: README explica credenciais locais.
+- [x] `[Infra]` Adicionar pacote MailKit. Criterio de pronto: projeto restaura pacote.
+- [x] `[Infra]` Criar `EmailOptions`. Criterio de pronto: host, porta, usuario, senha, remetente e SSL estao representados.
+- [x] `[Infra]` Configurar options de e-mail no DI. Criterio de pronto: `EmailOptions` recebe configuracao do appsettings.
+- [x] `[Infra]` Criar `SmtpEmailSender`. Criterio de pronto: implementa `IEmailSender`.
+- [x] `[Infra]` Implementar envio SMTP. Criterio de pronto: sender envia destinatario, assunto e corpo.
+- [x] `[Infra]` Implementar template de tarefa atribuida. Criterio de pronto: e-mail informa mensagem e prazo.
+- [x] `[Infra]` Implementar template de tarefa finalizada. Criterio de pronto: e-mail informa tarefa finalizada e subordinado.
+- [x] `[Infra]` Conectar dispatcher ao `IEmailSender`. Criterio de pronto: Outbox pendente dispara envio.
+- [x] `[Web]` Adicionar configuracao de e-mail em `appsettings.json`. Criterio de pronto: chaves existem sem segredos reais.
+- [x] `[Docs]` Documentar uso de User Secrets para SMTP. Criterio de pronto: README explica credenciais locais.
 
 ## 9. Web - Composition Root
 
@@ -250,7 +250,7 @@ Objetivo da camada: receber o arquivo bruto vindo da Web, validar, salvar no sto
 - [ ] `[Web]` Registrar Identity no `Program.cs`. Criterio de pronto: login e roles funcionam.
 - [ ] `[Web]` Registrar servicos de Application no DI. Criterio de pronto: controllers resolvem services.
 - [ ] `[Web]` Registrar servicos de Infrastructure no DI. Criterio de pronto: repositories, storage, e-mail e outbox resolvem.
-- [ ] `[Web]` Registrar `OutboxDispatcherService`. Criterio de pronto: hosted service inicia com a aplicacao.
+- [x] `[Web]` Registrar `OutboxDispatcherService`. Criterio de pronto: hosted service inicia com a aplicacao.
 - [ ] `[Web]` Configurar pipeline de autenticacao. Criterio de pronto: `UseAuthentication` esta antes de `UseAuthorization`.
 - [ ] `[Web]` Configurar pipeline de autorizacao. Criterio de pronto: roles sao avaliadas nas actions.
 - [ ] `[Web]` Configurar arquivos estaticos. Criterio de pronto: `wwwroot` serve assets e uploads.

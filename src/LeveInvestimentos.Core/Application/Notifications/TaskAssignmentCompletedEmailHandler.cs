@@ -27,7 +27,20 @@ public sealed class TaskAssignmentCompletedEmailHandler
             return Result.Failure(new Error("Notifications.ManagerEmailNotFound", "Manager e-mail was not found."));
         }
 
-        var body = $"Tarefa finalizada: {domainEvent.Description}. Finalizada em: {domainEvent.CompletedAt:dd/MM/yyyy HH:mm}.";
+        var subordinate = await _userRepository.GetByIdAsync(domainEvent.SubordinateId, cancellationToken);
+        if (subordinate is null)
+        {
+            return Result.Failure(new Error("Notifications.SubordinateNotFound", "Subordinate was not found."));
+        }
+
+        var body = string.Join(
+            System.Environment.NewLine,
+            "Tarefa finalizada.",
+            string.Empty,
+            $"Mensagem: {domainEvent.Description}",
+            $"Subordinado: {subordinate.FullName}",
+            $"Finalizada em: {domainEvent.CompletedAt:dd/MM/yyyy HH:mm}");
+
         await _emailOutbox.EnqueueAsync(manager.Email, "Tarefa finalizada", body, cancellationToken);
 
         return Result.Success();
