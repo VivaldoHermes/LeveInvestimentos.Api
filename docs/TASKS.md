@@ -244,21 +244,21 @@ Objetivo da camada: receber o arquivo bruto vindo da Web, validar, salvar no sto
 
 ## 9. Web - Composition Root
 
-- [ ] `[Web]` Revisar `Program.cs`. Criterio de pronto: arquivo e composition root da aplicacao.
-- [ ] `[Web]` Registrar MVC no `Program.cs`. Criterio de pronto: controllers com views funcionam.
-- [ ] `[Web]` Registrar `ApplicationDbContext` no `Program.cs`. Criterio de pronto: connection string e usada.
-- [ ] `[Web]` Registrar Identity no `Program.cs`. Criterio de pronto: login e roles funcionam.
-- [ ] `[Web]` Registrar servicos de Application no DI. Criterio de pronto: controllers resolvem services.
-- [ ] `[Web]` Registrar servicos de Infrastructure no DI. Criterio de pronto: repositories, storage, e-mail e outbox resolvem.
+- [x] `[Web]` Revisar `Program.cs`. Criterio de pronto: arquivo e composition root da aplicacao.
+- [x] `[Web]` Registrar MVC no `Program.cs`. Criterio de pronto: controllers com views funcionam.
+- [x] `[Web]` Registrar `ApplicationDbContext` no `Program.cs`. Criterio de pronto: connection string e usada.
+- [x] `[Web]` Registrar Identity no `Program.cs`. Criterio de pronto: login e roles funcionam.
+- [x] `[Web]` Registrar servicos de Application no DI. Criterio de pronto: controllers resolvem services.
+- [x] `[Web]` Registrar servicos de Infrastructure no DI. Criterio de pronto: repositories, storage, e-mail e outbox resolvem.
 - [x] `[Web]` Registrar `OutboxDispatcherService`. Criterio de pronto: hosted service inicia com a aplicacao.
-- [ ] `[Web]` Configurar pipeline de autenticacao. Criterio de pronto: `UseAuthentication` esta antes de `UseAuthorization`.
-- [ ] `[Web]` Configurar pipeline de autorizacao. Criterio de pronto: roles sao avaliadas nas actions.
-- [ ] `[Web]` Configurar arquivos estaticos. Criterio de pronto: `wwwroot` serve assets e uploads.
-- [ ] `[Web]` Configurar HTTPS e HSTS. Criterio de pronto: `UseHttpsRedirection` e `UseHsts` (fora de dev) estao no pipeline.
-- [ ] `[Web]` Configurar anti-forgery global. Criterio de pronto: POSTs exigem token (`AutoValidateAntiforgeryToken` ou equivalente).
-- [ ] `[Web]` Configurar logging estruturado com Serilog. Criterio de pronto: logs sao estruturados e nao registram dados sensiveis (senha, foto, dados pessoais).
-- [ ] `[Web]` Criar middleware de excecao. Criterio de pronto: falhas inesperadas sao tratadas de forma padronizada.
-- [ ] `[Web]` Registrar middleware de excecao. Criterio de pronto: middleware esta no pipeline.
+- [x] `[Web]` Configurar pipeline de autenticacao. Criterio de pronto: `UseAuthentication` esta antes de `UseAuthorization`.
+- [x] `[Web]` Configurar pipeline de autorizacao. Criterio de pronto: roles sao avaliadas nas actions.
+- [x] `[Web]` Configurar arquivos estaticos. Criterio de pronto: `wwwroot` serve assets e uploads.
+- [x] `[Web]` Configurar HTTPS e HSTS. Criterio de pronto: `UseHttpsRedirection` e `UseHsts` (fora de dev) estao no pipeline.
+- [x] `[Web]` Configurar anti-forgery global. Criterio de pronto: POSTs exigem token (`AutoValidateAntiforgeryToken` ou equivalente).
+- [x] `[Web]` Configurar logging estruturado com Serilog. Criterio de pronto: logs sao estruturados e nao registram dados sensiveis (senha, foto, dados pessoais).
+- [x] `[Web]` Criar middleware de excecao. Criterio de pronto: falhas inesperadas sao tratadas de forma padronizada.
+- [x] `[Web]` Registrar middleware de excecao. Criterio de pronto: middleware esta no pipeline.
 
 ## 10. Web - Autenticacao
 
