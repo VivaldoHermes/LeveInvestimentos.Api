@@ -1,4 +1,5 @@
 using LeveInvestimentos.Web.Filters;
+using LeveInvestimentos.Web.Services.Home;
 using LeveInvestimentos.Web.Services.TaskAssignments;
 using LeveInvestimentos.Web.Services.Users;
 using Microsoft.AspNetCore.Http;
@@ -12,6 +13,7 @@ public static class DependencyInjection
     public static IServiceCollection AddWebPresentation(this IServiceCollection services)
     {
         services.AddScoped<RequirePasswordChangeFilter>();
+        services.AddScoped<IHomeDashboardService, HomeDashboardService>();
         services.AddScoped<ITaskAssignmentManagementService, TaskAssignmentManagementService>();
         services.AddScoped<IUserManagementService, UserManagementService>();
 

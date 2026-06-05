@@ -1,7 +1,124 @@
+@model HomeDashboardViewModel
+
 @{
     ViewData["Title"] = "Inicio";
 }
 
 <section class="uk-section uk-section-small">
-    <h1 class="uk-heading-small">Inicio</h1>
+    <div class="uk-flex uk-flex-between uk-flex-middle uk-margin">
+        <div>
+            <h1 class="uk-heading-small uk-margin-remove">Inicio</h1>
+            <p class="uk-text-muted uk-margin-small-top">Acompanhamento de tarefas e equipe.</p>
+        </div>
+        <div class="uk-button-group">
+            <a asp-controller="TaskAssignments" asp-action="Criar" class="uk-button uk-button-primary">Criar tarefa</a>
+            <a asp-controller="Users" asp-action="Criar" class="uk-button uk-button-default">Cadastrar usuario</a>
+            <a asp-controller="TaskAssignments" asp-action="Index" class="uk-button uk-button-default">Ver tarefas</a>
+        </div>
+    </div>
+
+    <div class="uk-grid-small uk-child-width-1-2@s uk-child-width-1-4@m" uk-grid>
+        <div>
+            <div class="uk-card uk-card-default uk-card-body">
+                <span class="uk-text-meta">Pendentes</span>
+                <div class="uk-heading-small uk-margin-remove">@Model.PendingTasks</div>
+            </div>
+        </div>
+        <div>
+            <div class="uk-card uk-card-default uk-card-body">
+                <span class="uk-text-meta">Em andamento</span>
+                <div class="uk-heading-small uk-margin-remove">@Model.StartedTasks</div>
+            </div>
+        </div>
+        <div>
+            <div class="uk-card uk-card-default uk-card-body">
+                <span class="uk-text-meta">Atrasadas</span>
+                <div class="uk-heading-small uk-margin-remove">@Model.OverdueTasks</div>
+            </div>
+        </div>
+        <div>
+            <div class="uk-card uk-card-default uk-card-body">
+                <span class="uk-text-meta">Proximos 7 dias</span>
+                <div class="uk-heading-small uk-margin-remove">@Model.DueSoonTasks</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-grid-large uk-margin-large-top" uk-grid>
+        <div class="uk-width-2-3@m">
+            <div class="uk-flex uk-flex-between uk-flex-middle uk-margin-small-bottom">
+                <h2 class="uk-h3 uk-margin-remove">Prioridades</h2>
+                <a asp-controller="TaskAssignments" asp-action="Index" class="uk-button uk-button-text">Abrir lista completa</a>
+            </div>
+
+            @if (Model.PriorityTasks.Count == 0)
+            {
+                <div class="uk-alert-primary" uk-alert>
+                    <p>Nenhuma tarefa ativa encontrada.</p>
+                </div>
+            }
+            else
+            {
+                <div class="uk-overflow-auto">
+                    <table class="uk-table uk-table-divider uk-table-hover uk-table-middle">
+                        <thead>
+                            <tr>
+                                <th>Descricao</th>
+                                <th>Subordinado</th>
+                                <th>Data limite</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var task in Model.PriorityTasks)
+                            {
+                                <tr>
+                                    <td>@task.Description</td>
+                                    <td>@task.SubordinateName</td>
+                                    <td>@task.DueDate.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                                    <td>
+                                        <span class="uk-label">@task.StatusDisplayName</span>
+                                        @if (task.IsOverdue)
+                                        {
+                                            <span class="uk-label uk-label-danger">Atrasada</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+
+        <div class="uk-width-1-3@m">
+            <h2 class="uk-h3">Resumo</h2>
+            <ul class="uk-list uk-list-divider">
+                <li>
+                    <span class="uk-text-meta">Total de tarefas</span>
+                    <div class="uk-text-large">@Model.TotalTasks</div>
+                </li>
+                <li>
+                    <span class="uk-text-meta">Concluidas</span>
+                    <div class="uk-text-large">@Model.CompletedTasks</div>
+                </li>
+                <li>
+                    <span class="uk-text-meta">Canceladas</span>
+                    <div class="uk-text-large">@Model.CanceledTasks</div>
+                </li>
+                <li>
+                    <span class="uk-text-meta">Usuarios gerenciados</span>
+                    <div class="uk-text-large">@Model.ManagedUsers</div>
+                </li>
+                <li>
+                    <span class="uk-text-meta">Subordinados</span>
+                    <div class="uk-text-large">@Model.Subordinates</div>
+                </li>
+                <li>
+                    <span class="uk-text-meta">Troca de senha pendente</span>
+                    <div class="uk-text-large">@Model.PendingPasswordChanges</div>
+                </li>
+            </ul>
+        </div>
+    </div>
 </section>
