@@ -57,6 +57,7 @@ project.assets.json
 *.nuget.props
 *.nuget.targets
 .nuget/
+.tools/
 
 ## Logs and diagnostics
 logs/

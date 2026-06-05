@@ -8,7 +8,10 @@ public sealed class DesignTimeApplicationDbContextFactory : IDesignTimeDbContext
     public ApplicationDbContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-        optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=LeveInvestimentos;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True");
+        var connectionString = System.Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
+            ?? "Server=localhost,1433;Database=LeveInvestimentos;User Id=sa;Password=Leve@123456;Encrypt=False;TrustServerCertificate=True;MultipleActiveResultSets=true";
+
+        optionsBuilder.UseSqlServer(connectionString);
 
         return new ApplicationDbContext(optionsBuilder.Options);
     }
