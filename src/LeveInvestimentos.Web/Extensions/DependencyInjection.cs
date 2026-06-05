@@ -1,4 +1,5 @@
 using LeveInvestimentos.Web.Filters;
+using LeveInvestimentos.Web.Services.TaskAssignments;
 using LeveInvestimentos.Web.Services.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ public static class DependencyInjection
     public static IServiceCollection AddWebPresentation(this IServiceCollection services)
     {
         services.AddScoped<RequirePasswordChangeFilter>();
+        services.AddScoped<ITaskAssignmentManagementService, TaskAssignmentManagementService>();
         services.AddScoped<IUserManagementService, UserManagementService>();
 
         // Require a valid anti-forgery token on every state-changing request

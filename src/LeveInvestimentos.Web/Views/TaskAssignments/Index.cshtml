@@ -1,0 +1,89 @@
+@model TaskAssignmentIndexViewModel
+
+@{
+    ViewData["Title"] = "Tarefas";
+}
+
+<section class="uk-section uk-section-small">
+    <div class="uk-flex uk-flex-between uk-flex-middle uk-margin">
+        <h1 class="uk-heading-small uk-margin-remove">Tarefas</h1>
+        @if (Model.CanCreate)
+        {
+            <a asp-action="Criar" class="uk-button uk-button-primary">Criar tarefa</a>
+        }
+    </div>
+
+    <form asp-action="Index" method="get" class="uk-grid-small uk-flex-bottom uk-margin" uk-grid>
+        <div class="uk-width-1-3@s">
+            <label asp-for="Filter.Status" class="uk-form-label">Status</label>
+            <select asp-for="Filter.Status" asp-items="Model.Filter.StatusOptions" name="status" class="uk-select"></select>
+        </div>
+        <div>
+            <button type="submit" class="uk-button uk-button-default">Filtrar</button>
+        </div>
+    </form>
+
+    <div asp-validation-summary="ModelOnly" class="uk-alert-danger" uk-alert></div>
+
+    @if (Model.Tasks.Count == 0)
+    {
+        <div class="uk-alert-primary" uk-alert>
+            <p>Nenhuma tarefa encontrada.</p>
+        </div>
+    }
+    else
+    {
+        <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-divider uk-table-hover uk-table-middle">
+                <thead>
+                    <tr>
+                        <th>Descricao</th>
+                        <th>Subordinado</th>
+                        <th>Gestor</th>
+                        <th>Data limite</th>
+                        <th>Status</th>
+                        <th class="uk-text-right">Acoes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var task in Model.Tasks)
+                    {
+                        <tr>
+                            <td>@task.Description</td>
+                            <td>@task.SubordinateName</td>
+                            <td>@task.ManagerName</td>
+                            <td>@task.DueDate.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                            <td>
+                                <span class="uk-label">@task.StatusDisplayName</span>
+                                @if (task.IsOverdue)
+                                {
+                                    <span class="uk-label uk-label-danger">Atrasada</span>
+                                }
+                            </td>
+                            <td class="uk-text-right">
+                                @if (task.CanStart)
+                                {
+                                    <form asp-action="Iniciar" asp-route-id="@task.Id" method="post" class="uk-display-inline">
+                                        <button type="submit" class="uk-button uk-button-small uk-button-default">Iniciar</button>
+                                    </form>
+                                }
+                                @if (task.CanComplete)
+                                {
+                                    <form asp-action="Finalizar" asp-route-id="@task.Id" method="post" class="uk-display-inline">
+                                        <button type="submit" class="uk-button uk-button-small uk-button-primary">Finalizar</button>
+                                    </form>
+                                }
+                                @if (task.CanCancel)
+                                {
+                                    <form asp-action="Cancelar" asp-route-id="@task.Id" method="post" class="uk-display-inline">
+                                        <button type="submit" class="uk-button uk-button-small uk-button-danger">Cancelar</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>

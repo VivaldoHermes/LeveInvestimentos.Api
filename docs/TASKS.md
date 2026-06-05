@@ -298,33 +298,33 @@ Objetivo da camada: receber o arquivo bruto vindo da Web, validar, salvar no sto
 
 ## 12. Web - Tarefas
 
-- [ ] `[Web]` Criar `TaskAssignmentListItemViewModel`. Criterio de pronto: contem dados para lista.
-- [ ] `[Web]` Criar `CreateTaskAssignmentViewModel`. Criterio de pronto: contem descricao, data limite e subordinado.
-- [ ] `[Web]` Criar view model de filtro de tarefa. Criterio de pronto: status pode ser informado na listagem.
-- [ ] `[Web]` Criar mapeamento de view model para command de criar tarefa. Criterio de pronto: controller nao monta entidade.
-- [ ] `[Web]` Criar `TaskAssignmentsController`. Criterio de pronto: controller compila.
-- [ ] `[Web]` Adicionar `[Authorize]` no `TaskAssignmentsController`. Criterio de pronto: somente autenticados acessam tarefas.
-- [ ] `[Web]` Criar action GET `Index`. Criterio de pronto: lista muda conforme papel do usuario.
-- [ ] `[Web]` Criar filtro por status no `Index`. Criterio de pronto: query string de status altera lista.
-- [ ] `[Web]` Criar action GET `Criar`. Criterio de pronto: apenas gestor acessa formulario.
-- [ ] `[Web]` Popular subordinados na action GET `Criar`. Criterio de pronto: select contem subordinados disponiveis.
-- [ ] `[Web]` Criar action POST `Criar`. Criterio de pronto: chama `ITaskAssignmentService`.
-- [ ] `[Web]` Tratar erro de validacao na criacao de tarefa. Criterio de pronto: formulario reexibe mensagens.
-- [ ] `[Web]` Criar action POST `Iniciar`. Criterio de pronto: chama `ITaskAssignmentService.Start` (Pending para Started) usando o usuario autenticado.
-- [ ] `[Web]` Criar action POST `Finalizar`. Criterio de pronto: chama `ITaskAssignmentService.Complete`.
-- [ ] `[Web]` Garantir que finalizar usa usuario autenticado. Criterio de pronto: command recebe id do usuario atual.
-- [ ] `[Web]` Criar action POST `Cancelar`. Criterio de pronto: chama `ITaskAssignmentService.Cancel`.
-- [ ] `[Web]` Garantir que cancelar usa usuario autenticado. Criterio de pronto: command recebe id do usuario atual.
-- [ ] `[Web]` Criar view `TaskAssignments/Index`. Criterio de pronto: tarefas aparecem com status e prazo, com labels em portugues.
-- [ ] `[Web]` Criar view `TaskAssignments/Create`. Criterio de pronto: formulario permite escolher subordinado e prazo, com labels em portugues.
-- [ ] `[Web]` Adicionar botao de iniciar tarefa. Criterio de pronto: aparece apenas quando a tarefa esta `Pending` e o usuario pode inicia-la.
-- [ ] `[Web]` Adicionar botao de finalizar tarefa. Criterio de pronto: aparece apenas quando usuario pode finalizar.
-- [ ] `[Web]` Adicionar botao de cancelar tarefa. Criterio de pronto: aparece apenas quando usuario pode cancelar.
-- [ ] `[Web]` Exibir badge "Atrasada" na listagem de tarefas. Criterio de pronto: badge aparece quando `IsOverdue` e verdadeiro, sem alterar o status persistido.
-- [ ] `[Web]` Garantir anti-forgery token nos formularios de tarefa. Criterio de pronto: POSTs de criar, iniciar, finalizar e cancelar incluem token CSRF.
-- [ ] `[Web]` Adicionar UIkit nas views de tarefa. Criterio de pronto: views usam classes UIkit basicas.
-- [ ] `[Web]` Exibir feedback de sucesso em tarefa criada. Criterio de pronto: gestor sabe que tarefa foi criada.
-- [ ] `[Web]` Exibir feedback de sucesso em tarefa finalizada. Criterio de pronto: subordinado sabe que tarefa foi finalizada.
+- [x] `[Web]` Criar `TaskAssignmentListItemViewModel`. Criterio de pronto: contem dados para lista.
+- [x] `[Web]` Criar `CreateTaskAssignmentViewModel`. Criterio de pronto: contem descricao, data limite e subordinado.
+- [x] `[Web]` Criar view model de filtro de tarefa. Criterio de pronto: status pode ser informado na listagem.
+- [x] `[Web]` Criar mapeamento de view model para command de criar tarefa. Criterio de pronto: controller nao monta entidade.
+- [x] `[Web]` Criar `TaskAssignmentsController`. Criterio de pronto: controller compila.
+- [x] `[Web]` Adicionar `[Authorize]` no `TaskAssignmentsController`. Criterio de pronto: somente autenticados acessam tarefas.
+- [x] `[Web]` Criar action GET `Index`. Criterio de pronto: lista muda conforme papel do usuario.
+- [x] `[Web]` Criar filtro por status no `Index`. Criterio de pronto: query string de status altera lista.
+- [x] `[Web]` Criar action GET `Criar`. Criterio de pronto: apenas gestor acessa formulario.
+- [x] `[Web]` Popular subordinados na action GET `Criar`. Criterio de pronto: select contem subordinados disponiveis.
+- [x] `[Web]` Criar action POST `Criar`. Criterio de pronto: chama `ITaskAssignmentService`.
+- [x] `[Web]` Tratar erro de validacao na criacao de tarefa. Criterio de pronto: formulario reexibe mensagens.
+- [x] `[Web]` Criar action POST `Iniciar`. Criterio de pronto: chama `ITaskAssignmentService.Start` (Pending para Started) usando o usuario autenticado.
+- [x] `[Web]` Criar action POST `Finalizar`. Criterio de pronto: chama `ITaskAssignmentService.Complete`.
+- [x] `[Web]` Garantir que finalizar usa usuario autenticado. Criterio de pronto: command recebe id do usuario atual.
+- [x] `[Web]` Criar action POST `Cancelar`. Criterio de pronto: chama `ITaskAssignmentService.Cancel`.
+- [x] `[Web]` Garantir que cancelar usa usuario autenticado. Criterio de pronto: command recebe id do usuario atual.
+- [x] `[Web]` Criar view `TaskAssignments/Index`. Criterio de pronto: tarefas aparecem com status e prazo, com labels em portugues.
+- [x] `[Web]` Criar view `TaskAssignments/Create`. Criterio de pronto: formulario permite escolher subordinado e prazo, com labels em portugues.
+- [x] `[Web]` Adicionar botao de iniciar tarefa. Criterio de pronto: aparece apenas quando a tarefa esta `Pending` e o usuario pode inicia-la.
+- [x] `[Web]` Adicionar botao de finalizar tarefa. Criterio de pronto: aparece apenas quando usuario pode finalizar.
+- [x] `[Web]` Adicionar botao de cancelar tarefa. Criterio de pronto: aparece apenas quando usuario pode cancelar.
+- [x] `[Web]` Exibir badge "Atrasada" na listagem de tarefas. Criterio de pronto: badge aparece quando `IsOverdue` e verdadeiro, sem alterar o status persistido.
+- [x] `[Web]` Garantir anti-forgery token nos formularios de tarefa. Criterio de pronto: POSTs de criar, iniciar, finalizar e cancelar incluem token CSRF.
+- [x] `[Web]` Adicionar UIkit nas views de tarefa. Criterio de pronto: views usam classes UIkit basicas.
+- [x] `[Web]` Exibir feedback de sucesso em tarefa criada. Criterio de pronto: gestor sabe que tarefa foi criada.
+- [x] `[Web]` Exibir feedback de sucesso em tarefa finalizada. Criterio de pronto: subordinado sabe que tarefa foi finalizada.
 
 ## 13. Testes
 

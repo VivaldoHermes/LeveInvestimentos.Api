@@ -17,6 +17,7 @@
                     <ul class="uk-navbar-nav">
                         @if (User.Identity?.IsAuthenticated == true)
                         {
+                            <li><a asp-controller="TaskAssignments" asp-action="Index">Tarefas</a></li>
                             @if (User.IsInRole("Manager"))
                             {
                                 <li><a asp-controller="Users" asp-action="Index">Usuarios</a></li>
@@ -43,6 +44,12 @@
         {
             <div class="uk-alert-success" uk-alert>
                 <p>@successMessage</p>
+            </div>
+        }
+        @if (TempData["ErrorMessage"] is string errorMessage)
+        {
+            <div class="uk-alert-danger" uk-alert>
+                <p>@errorMessage</p>
             </div>
         }
 

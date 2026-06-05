@@ -1,0 +1,46 @@
+@model CreateTaskAssignmentViewModel
+
+@{
+    ViewData["Title"] = "Criar tarefa";
+}
+
+<section class="uk-section uk-section-small">
+    <div class="uk-container uk-container-small">
+        <h1 class="uk-heading-small">Criar tarefa</h1>
+
+        <form asp-action="Criar" method="post" class="uk-form-stacked">
+            <div asp-validation-summary="ModelOnly" class="uk-alert-danger" uk-alert></div>
+
+            <div class="uk-margin">
+                <label asp-for="SubordinateId" class="uk-form-label"></label>
+                <div class="uk-form-controls">
+                    <select asp-for="SubordinateId" asp-items="Model.Subordinates" class="uk-select">
+                        <option value="">Selecione</option>
+                    </select>
+                    <span asp-validation-for="SubordinateId" class="uk-text-danger"></span>
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <label asp-for="Description" class="uk-form-label"></label>
+                <div class="uk-form-controls">
+                    <textarea asp-for="Description" class="uk-textarea" rows="5"></textarea>
+                    <span asp-validation-for="Description" class="uk-text-danger"></span>
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <label asp-for="DueDate" class="uk-form-label"></label>
+                <div class="uk-form-controls">
+                    <input asp-for="DueDate" class="uk-input" type="datetime-local" />
+                    <span asp-validation-for="DueDate" class="uk-text-danger"></span>
+                </div>
+            </div>
+
+            <div class="uk-margin-large-top">
+                <button type="submit" class="uk-button uk-button-primary">Salvar tarefa</button>
+                <a asp-action="Index" class="uk-button uk-button-default">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</section>
