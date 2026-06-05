@@ -262,20 +262,20 @@ Objetivo da camada: receber o arquivo bruto vindo da Web, validar, salvar no sto
 
 ## 10. Web - Autenticacao
 
-- [ ] `[Web]` Criar `LoginViewModel`. Criterio de pronto: contem e-mail, senha e lembrar login se necessario.
-- [ ] `[Web]` Criar `AccountController`. Criterio de pronto: controller compila.
-- [ ] `[Web]` Criar action GET `Login`. Criterio de pronto: retorna view de login.
-- [ ] `[Web]` Criar action POST `Login`. Criterio de pronto: autentica via Identity.
-- [ ] `[Web]` Tratar login invalido. Criterio de pronto: usuario ve erro sem exception.
-- [ ] `[Web]` Criar action `Logout`. Criterio de pronto: encerra cookie de autenticacao.
-- [ ] `[Web]` Criar action `AccessDenied`. Criterio de pronto: retorna view de acesso negado.
-- [ ] `[Web]` Criar view `Account/Login`. Criterio de pronto: formulario posta e-mail e senha.
-- [ ] `[Web]` Criar view `Account/AccessDenied`. Criterio de pronto: usuario entende que nao tem permissao.
-- [ ] `[Web]` Criar `ChangePasswordViewModel`. Criterio de pronto: contem senha atual, nova senha e confirmacao.
-- [ ] `[Web]` Criar actions GET/POST `ChangePassword`. Criterio de pronto: usuario troca a senha via Identity e `MustChangePassword` vira `false` apos sucesso.
-- [ ] `[Web]` Forcar troca de senha no primeiro login. Criterio de pronto: middleware ou filtro redireciona usuario com `MustChangePassword = true` para `ChangePassword` antes de acessar outras telas.
-- [ ] `[Web]` Criar view `Account/ChangePassword`. Criterio de pronto: formulario posta nova senha com labels em portugues.
-- [ ] `[Web]` Adicionar links de login/logout no layout. Criterio de pronto: navegacao reflete usuario autenticado.
+- [x] `[Web]` Criar `LoginViewModel`. Criterio de pronto: contem e-mail, senha e lembrar login se necessario.
+- [x] `[Web]` Criar `AccountController`. Criterio de pronto: controller compila.
+- [x] `[Web]` Criar action GET `Login`. Criterio de pronto: retorna view de login.
+- [x] `[Web]` Criar action POST `Login`. Criterio de pronto: autentica via Identity.
+- [x] `[Web]` Tratar login invalido. Criterio de pronto: usuario ve erro sem exception.
+- [x] `[Web]` Criar action `Logout`. Criterio de pronto: encerra cookie de autenticacao.
+- [x] `[Web]` Criar action `AccessDenied`. Criterio de pronto: retorna view de acesso negado.
+- [x] `[Web]` Criar view `Account/Login`. Criterio de pronto: formulario posta e-mail e senha.
+- [x] `[Web]` Criar view `Account/AccessDenied`. Criterio de pronto: usuario entende que nao tem permissao.
+- [x] `[Web]` Criar `ChangePasswordViewModel`. Criterio de pronto: contem senha atual, nova senha e confirmacao.
+- [x] `[Web]` Criar actions GET/POST `ChangePassword`. Criterio de pronto: usuario troca a senha via Identity e `MustChangePassword` vira `false` apos sucesso.
+- [x] `[Web]` Forcar troca de senha no primeiro login. Criterio de pronto: middleware ou filtro redireciona usuario com `MustChangePassword = true` para `ChangePassword` antes de acessar outras telas.
+- [x] `[Web]` Criar view `Account/ChangePassword`. Criterio de pronto: formulario posta nova senha com labels em portugues.
+- [x] `[Web]` Adicionar links de login/logout no layout. Criterio de pronto: navegacao reflete usuario autenticado.
 
 ## 11. Web - Usuarios
 

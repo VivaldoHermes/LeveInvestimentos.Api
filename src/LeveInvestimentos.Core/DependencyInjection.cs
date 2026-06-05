@@ -1,3 +1,4 @@
+using LeveInvestimentos.Core.Application.Account.Services;
 using LeveInvestimentos.Core.Application.Tarefas.Services;
 using LeveInvestimentos.Core.Application.Users.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +9,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
+        services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<ITaskAssignmentService, TaskAssignmentService>();
 

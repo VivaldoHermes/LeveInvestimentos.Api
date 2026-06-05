@@ -47,3 +47,4 @@ docs/
 - Controllers e Views pertencem somente a `Web`.
 - Regras de tarefa e usuario devem nascer em `Core`.
 - eShopOnWeb e referencia arquitetural, nao blueprint literal.
+- Autenticacao Web usa Application Service + Gateway: `AccountController` coordena HTTP, `IAccountService` orquestra o fluxo e `IAccountIdentityGateway` adapta ASP.NET Core Identity na infraestrutura.

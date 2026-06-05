@@ -76,6 +76,7 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ITaskAssignmentRepository, TaskAssignmentRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IAccountIdentityGateway, AccountIdentityGateway>();
         services.AddScoped<IEmailOutbox, EmailOutbox>();
         services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
         services.AddScoped<TaskAssignmentCreatedEmailHandler>();

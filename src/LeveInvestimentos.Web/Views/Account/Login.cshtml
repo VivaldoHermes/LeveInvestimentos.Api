@@ -1,0 +1,40 @@
+@model LoginViewModel
+
+@{
+    ViewData["Title"] = "Entrar";
+}
+
+<section class="uk-section uk-section-small">
+    <div class="uk-container uk-container-small">
+        <h1 class="uk-heading-small">Entrar</h1>
+
+        <form asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post" class="uk-form-stacked">
+            <div asp-validation-summary="ModelOnly" class="uk-alert-danger" uk-alert></div>
+
+            <div class="uk-margin">
+                <label asp-for="Email" class="uk-form-label"></label>
+                <div class="uk-form-controls">
+                    <input asp-for="Email" class="uk-input" autocomplete="username" autofocus />
+                    <span asp-validation-for="Email" class="uk-text-danger"></span>
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <label asp-for="Password" class="uk-form-label"></label>
+                <div class="uk-form-controls">
+                    <input asp-for="Password" class="uk-input" autocomplete="current-password" />
+                    <span asp-validation-for="Password" class="uk-text-danger"></span>
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <label>
+                    <input asp-for="RememberMe" class="uk-checkbox" />
+                    @Html.DisplayNameFor(model => model.RememberMe)
+                </label>
+            </div>
+
+            <button type="submit" class="uk-button uk-button-primary">Entrar</button>
+        </form>
+    </div>
+</section>

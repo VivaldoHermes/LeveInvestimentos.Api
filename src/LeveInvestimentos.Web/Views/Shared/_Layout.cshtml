@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - LEVE Investimentos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.23.7/dist/css/uikit.min.css" />
+</head>
+<body>
+    <header class="uk-navbar-container">
+        <div class="uk-container">
+            <nav class="uk-navbar" uk-navbar>
+                <div class="uk-navbar-left">
+                    <a class="uk-navbar-item uk-logo" asp-controller="Home" asp-action="Index">LEVE Investimentos</a>
+                </div>
+                <div class="uk-navbar-right">
+                    <ul class="uk-navbar-nav">
+                        @if (User.Identity?.IsAuthenticated == true)
+                        {
+                            <li><span class="uk-navbar-item">@User.Identity.Name</span></li>
+                            <li>
+                                <form asp-controller="Account" asp-action="Logout" method="post" class="uk-margin-remove">
+                                    <button type="submit" class="uk-button uk-button-text">Sair</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li><a asp-controller="Account" asp-action="Login">Entrar</a></li>
+                        }
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="uk-container uk-margin-large-top">
+        @if (TempData["SuccessMessage"] is string successMessage)
+        {
+            <div class="uk-alert-success" uk-alert>
+                <p>@successMessage</p>
+            </div>
+        }
+
+        @RenderBody()
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.7/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.23.7/dist/js/uikit-icons.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
