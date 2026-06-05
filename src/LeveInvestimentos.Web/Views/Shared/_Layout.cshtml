@@ -17,6 +17,10 @@
                     <ul class="uk-navbar-nav">
                         @if (User.Identity?.IsAuthenticated == true)
                         {
+                            @if (User.IsInRole("Manager"))
+                            {
+                                <li><a asp-controller="Users" asp-action="Index">Usuarios</a></li>
+                            }
                             <li><span class="uk-navbar-item">@User.Identity.Name</span></li>
                             <li>
                                 <form asp-controller="Account" asp-action="Logout" method="post" class="uk-margin-remove">

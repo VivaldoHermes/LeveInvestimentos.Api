@@ -186,15 +186,15 @@ Este arquivo transforma o `PLAN.md` em uma lista operacional de acompanhamento.
 ## 5. Infrastructure - Identity e Seed
 
 - [x] `[Infra]` Configurar Identity para usar `User`. Criterio de pronto: Identity usa usuario customizado.
-- [x] `[Infra]` Configurar roles de Identity. Criterio de pronto: roles `Gestor` e `Subordinado` sao suportadas.
+- [x] `[Infra]` Configurar roles de Identity. Criterio de pronto: roles tecnicas `Manager` e `Subordinate` sao suportadas.
 - [x] `[Infra]` Configurar password policy. Criterio de pronto: senha `teste123` funciona conforme requisito.
 - [x] `[Infra]` Configurar cookie auth. Criterio de pronto: login MVC autentica via cookie.
 - [x] `[Infra]` Configurar cookies seguros. Criterio de pronto: cookie de auth usa `HttpOnly`, `SecurePolicy` e `SameSite` adequados.
 - [x] `[Infra]` Criar `DatabaseSeeder`. Criterio de pronto: classe existe e compila.
-- [x] `[Infra]` Implementar seed da role `Gestor`. Criterio de pronto: role e criada se nao existir.
-- [x] `[Infra]` Implementar seed da role `Subordinado`. Criterio de pronto: role e criada se nao existir.
+- [x] `[Infra]` Implementar seed da role `Manager`. Criterio de pronto: role e criada se nao existir.
+- [x] `[Infra]` Implementar seed da role `Subordinate`. Criterio de pronto: role e criada se nao existir.
 - [x] `[Infra]` Implementar seed do usuario gestor padrao. Criterio de pronto: `ti@leveinvestimentos.com.br` e criado se nao existir, com `MustChangePassword = false`.
-- [x] `[Infra]` Atribuir role `Gestor` ao usuario padrao. Criterio de pronto: usuario padrao autentica como gestor.
+- [x] `[Infra]` Atribuir role `Manager` ao usuario padrao. Criterio de pronto: usuario padrao autentica como gestor.
 - [x] `[Infra]` Garantir idempotencia do seeder. Criterio de pronto: executar duas vezes nao duplica dados.
 - [x] `[Web]` Chamar seeder no startup. Criterio de pronto: aplicacao semeia dados ao iniciar.
 - [x] `[Docs]` Gerar ou documentar `docs/database/02_seed.sql`. Criterio de pronto: script ou orientacao cobre usuario e roles.
@@ -279,22 +279,22 @@ Objetivo da camada: receber o arquivo bruto vindo da Web, validar, salvar no sto
 
 ## 11. Web - Usuarios
 
-- [ ] `[Web]` Criar `UserListItemViewModel`. Criterio de pronto: contem dados para lista.
-- [ ] `[Web]` Criar `CreateUserViewModel`. Criterio de pronto: contem campos do cadastro e NAO contem campo de senha (senha e gerada pelo sistema).
-- [ ] `[Web]` Criar mapeamento de view model para command de usuario. Criterio de pronto: controller nao monta entidade.
-- [ ] `[Web]` Criar `UsersController`. Criterio de pronto: controller compila.
-- [ ] `[Web]` Adicionar `[Authorize(Roles = "Manager")]` no `UsersController`. Criterio de pronto: subordinado nao acessa cadastro.
-- [ ] `[Web]` Criar action GET `Index` em usuarios. Criterio de pronto: gestor ve lista de usuarios.
-- [ ] `[Web]` Criar action GET `Criar` em usuarios. Criterio de pronto: retorna formulario.
-- [ ] `[Web]` Criar action POST `Criar` em usuarios. Criterio de pronto: chama `IUserService`.
-- [ ] `[Web]` Tratar erro de validacao no cadastro de usuario. Criterio de pronto: view reexibe mensagens.
-- [ ] `[Web]` Integrar upload de foto no POST de usuario. Criterio de pronto: foto e salva via `IFileStorage`.
-- [ ] `[Web]` Persistir `ProfilePhotoPath` no cadastro. Criterio de pronto: caminho salvo aparece no usuario.
-- [ ] `[Web]` Criar view `Users/Index`. Criterio de pronto: lista usuarios com dados principais e labels em portugues.
-- [ ] `[Web]` Criar view `Users/Create`. Criterio de pronto: formulario contem todos os campos exigidos e labels em portugues.
-- [ ] `[Web]` Adicionar UIkit ao formulario de usuario. Criterio de pronto: formulario usa classes UIkit basicas.
-- [ ] `[Web]` Garantir anti-forgery token no formulario de usuario. Criterio de pronto: POST de cadastro inclui token CSRF.
-- [ ] `[Web]` Exibir feedback de sucesso no cadastro. Criterio de pronto: gestor sabe que usuario foi criado e que a senha foi enviada por e-mail para troca no primeiro login.
+- [x] `[Web]` Criar `UserListItemViewModel`. Criterio de pronto: contem dados para lista.
+- [x] `[Web]` Criar `CreateUserViewModel`. Criterio de pronto: contem campos do cadastro e NAO contem campo de senha (senha e gerada pelo sistema).
+- [x] `[Web]` Criar mapeamento de view model para command de usuario. Criterio de pronto: controller nao monta entidade.
+- [x] `[Web]` Criar `UsersController`. Criterio de pronto: controller compila.
+- [x] `[Web]` Adicionar `[Authorize(Roles = "Manager")]` no `UsersController`. Criterio de pronto: subordinado nao acessa cadastro.
+- [x] `[Web]` Criar action GET `Index` em usuarios. Criterio de pronto: gestor ve lista de usuarios.
+- [x] `[Web]` Criar action GET `Criar` em usuarios. Criterio de pronto: retorna formulario.
+- [x] `[Web]` Criar action POST `Criar` em usuarios. Criterio de pronto: chama `IUserService`.
+- [x] `[Web]` Tratar erro de validacao no cadastro de usuario. Criterio de pronto: view reexibe mensagens.
+- [x] `[Web]` Integrar upload de foto no POST de usuario. Criterio de pronto: foto e salva via `IFileStorage`.
+- [x] `[Web]` Persistir `ProfilePhotoPath` no cadastro. Criterio de pronto: caminho salvo aparece no usuario.
+- [x] `[Web]` Criar view `Users/Index`. Criterio de pronto: lista usuarios com dados principais e labels em portugues.
+- [x] `[Web]` Criar view `Users/Create`. Criterio de pronto: formulario contem todos os campos exigidos e labels em portugues.
+- [x] `[Web]` Adicionar UIkit ao formulario de usuario. Criterio de pronto: formulario usa classes UIkit basicas.
+- [x] `[Web]` Garantir anti-forgery token no formulario de usuario. Criterio de pronto: POST de cadastro inclui token CSRF.
+- [x] `[Web]` Exibir feedback de sucesso no cadastro. Criterio de pronto: gestor sabe que usuario foi criado e que a senha foi enviada por e-mail para troca no primeiro login.
 
 ## 12. Web - Tarefas
 

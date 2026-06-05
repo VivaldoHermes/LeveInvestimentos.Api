@@ -59,7 +59,7 @@ public sealed class User : IdentityUser<Guid>
     {
         var normalizedFullName = Required(fullName, nameof(fullName), 200);
         var normalizedEmail = ValidateEmail(email);
-        var normalizedProfilePhotoPath = Required(profilePhotoPath, nameof(profilePhotoPath), 500);
+        var normalizedProfilePhotoPath = Optional(profilePhotoPath, nameof(profilePhotoPath), 500);
         ValidateBirthDate(birthDate, today);
         ValidateManager(role, managerId);
 
@@ -87,6 +87,17 @@ public sealed class User : IdentityUser<Guid>
             throw new ArgumentException("User field is required.", parameterName);
         }
 
+        var trimmed = value.Trim();
+        if (trimmed.Length > maxLength)
+        {
+            throw new ArgumentException($"User field cannot exceed {maxLength} characters.", parameterName);
+        }
+
+        return trimmed;
+    }
+
+    private static string Optional(string value, string parameterName, int maxLength)
+    {
         var trimmed = value.Trim();
         if (trimmed.Length > maxLength)
         {

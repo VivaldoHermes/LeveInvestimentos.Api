@@ -48,7 +48,7 @@ Decisões arquiteturais (acordadas)
 ├─────────────┼───────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
 │ Arquitetura │ MVC em camadas com três projetos (Core, Infrastructure, Web) + projeto de testes │ Separação real de responsabilidades inspirada no eShopOnWeb, sem copiar a complexidade completa. Core sem dependência de EF/MVC/Identity; Web como composition root. │
 ├─────────────┼───────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ Identidade │ ASP.NET Core Identity + Cookie Auth com User (IdentityUser<Guid> estendido) e roles Gestor/Subordinado │ Hash de senha (PBKDF2), lockout, claims e roles prontos. Customização via User cobre 100% do schema pedido. │
+│ Identidade │ ASP.NET Core Identity + Cookie Auth com User (IdentityUser<Guid> estendido) e roles tecnicas Manager/Subordinate, exibidas como Gestor/Subordinado │ Hash de senha (PBKDF2), lockout, claims e roles prontos. Customização via User cobre 100% do schema pedido. │
 ├─────────────┼───────────────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
 │ ORM │ EF Core 10 + Migrations + Repository/UnitOfWork abstrato │ Migrations geram os scripts pedidos pelo desafio. Repository abstrai EF de Controllers e libera testes com │
 │ │ │ fakes. │
@@ -179,7 +179,7 @@ Etapas de implementação (sugestão de PRs / commits)
 1.  Scaffold — solution `LeveInvestimentos.sln` + três projetos (Core, Infrastructure, Web) e Tests; .editorconfig; nullable + warnings as errors; .gitignore; UIkit via libman; Dockerfile + docker-compose (app + SQL Server).
 2.  Core — Domain — User, TaskAssignment, value objects (Address, PhoneNumber), enums (TaskStatus, UserRole), eventos, abstractions. Sem dependências externas. Testes unitários do domínio nesta etapa.
 3.  Infrastructure — Persistence — ApplicationDbContext + Identity + configurations + migration inicial. Gerar 01_schema.sql.
-4.  Infrastructure — Seed — DatabaseSeeder roda no startup (app.Services.CreateScope() em Program.cs): cria roles Gestor/Subordinado e o usuário ti@leveinvestimentos.com.br (MustChangePassword=false) se ainda não
+4.  Infrastructure — Seed — DatabaseSeeder roda no startup (app.Services.CreateScope() em Program.cs): cria roles tecnicas Manager/Subordinate e o usuário ti@leveinvestimentos.com.br (MustChangePassword=false) se ainda não
     existir. Gerar 02_seed.sql documentado no README.
 5.  Application — Users — UserService, validator (FluentValidation), Result pattern. Gera senha aleatória (IPasswordGenerator), marca MustChangePassword e enfileira e-mail de credenciais. Reutiliza UserManager<User>.
 6.  Web — Auth + Users — AccountController (Login/Logout/AccessDenied/ChangePassword), fluxo de troca obrigatória no 1º login, UsersController com [Authorize(Roles="Manager")], ViewModels, Views em UIkit, upload de foto via IFileStorage.

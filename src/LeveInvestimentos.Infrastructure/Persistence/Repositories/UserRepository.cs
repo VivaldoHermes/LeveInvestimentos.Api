@@ -5,6 +5,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using LeveInvestimentos.Core.Abstractions;
 using LeveInvestimentos.Core.Domain.Entities;
+using LeveInvestimentos.Core.Domain.Enums;
+using LeveInvestimentos.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -66,6 +68,16 @@ public sealed class UserRepository : IUserRepository
         if (!result.Succeeded)
         {
             throw new InvalidOperationException(string.Join("; ", result.Errors.Select(error => error.Description)));
+        }
+
+        var roleName = user.Role == UserRole.Manager
+            ? IdentityRoleNames.Manager
+            : IdentityRoleNames.Subordinate;
+
+        var roleResult = await _userManager.AddToRoleAsync(user, roleName);
+        if (!roleResult.Succeeded)
+        {
+            throw new InvalidOperationException(string.Join("; ", roleResult.Errors.Select(error => error.Description)));
         }
     }
 }

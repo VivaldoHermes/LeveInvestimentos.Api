@@ -5,8 +5,8 @@
 -- puro em script SQL.
 --
 -- Dados semeados de forma idempotente:
--- - Role: Gestor
--- - Role: Subordinado
+-- - Role tecnica: Manager
+-- - Role tecnica: Subordinate
 -- - Usuario gestor padrao: ti@leveinvestimentos.com.br
 -- - Senha inicial do gestor padrao: teste123
 -- - MustChangePassword do gestor padrao: false

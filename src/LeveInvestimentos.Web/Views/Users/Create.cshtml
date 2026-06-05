@@ -1,0 +1,116 @@
+@using LeveInvestimentos.Core.Domain.Enums
+@model CreateUserViewModel
+
+@{
+    ViewData["Title"] = "Cadastro de usuarios";
+}
+
+<section class="uk-section uk-section-small">
+    <div class="uk-container uk-container-small">
+        <h1 class="uk-heading-small">Cadastro de usuarios</h1>
+
+        <form asp-action="Criar" method="post" enctype="multipart/form-data" class="uk-form-stacked">
+            <div asp-validation-summary="ModelOnly" class="uk-alert-danger" uk-alert></div>
+
+            <div class="uk-margin">
+                <label asp-for="FullName" class="uk-form-label"></label>
+                <div class="uk-form-controls">
+                    <input asp-for="FullName" class="uk-input" autocomplete="name" autofocus />
+                    <span asp-validation-for="FullName" class="uk-text-danger"></span>
+                </div>
+            </div>
+
+            <div class="uk-grid-small" uk-grid>
+                <div class="uk-width-1-2@s">
+                    <label asp-for="BirthDate" class="uk-form-label"></label>
+                    <div class="uk-form-controls">
+                        <input asp-for="BirthDate" class="uk-input" type="date" />
+                        <span asp-validation-for="BirthDate" class="uk-text-danger"></span>
+                    </div>
+                </div>
+                <div class="uk-width-1-2@s">
+                    <label asp-for="Role" class="uk-form-label"></label>
+                    <div class="uk-form-controls">
+                        <select asp-for="Role" class="uk-select">
+                            <option value="@UserRole.Subordinate">Subordinado</option>
+                            <option value="@UserRole.Manager">Gestor</option>
+                        </select>
+                        <span asp-validation-for="Role" class="uk-text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <label asp-for="Email" class="uk-form-label"></label>
+                <div class="uk-form-controls">
+                    <input asp-for="Email" class="uk-input" autocomplete="email" />
+                    <span asp-validation-for="Email" class="uk-text-danger"></span>
+                </div>
+            </div>
+
+            <div class="uk-grid-small" uk-grid>
+                <div class="uk-width-1-2@s">
+                    <label asp-for="LandlinePhone" class="uk-form-label"></label>
+                    <div class="uk-form-controls">
+                        <input asp-for="LandlinePhone" class="uk-input" autocomplete="tel" />
+                        <span asp-validation-for="LandlinePhone" class="uk-text-danger"></span>
+                    </div>
+                </div>
+                <div class="uk-width-1-2@s">
+                    <label asp-for="MobilePhone" class="uk-form-label"></label>
+                    <div class="uk-form-controls">
+                        <input asp-for="MobilePhone" class="uk-input" autocomplete="tel" />
+                        <span asp-validation-for="MobilePhone" class="uk-text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="uk-h3 uk-margin-large-top">Endereco</h2>
+
+            <div class="uk-margin">
+                <label asp-for="Street" class="uk-form-label"></label>
+                <div class="uk-form-controls">
+                    <input asp-for="Street" class="uk-input" autocomplete="address-line1" />
+                    <span asp-validation-for="Street" class="uk-text-danger"></span>
+                </div>
+            </div>
+
+            <div class="uk-grid-small" uk-grid>
+                <div class="uk-width-1-3@s">
+                    <label asp-for="Number" class="uk-form-label"></label>
+                    <div class="uk-form-controls">
+                        <input asp-for="Number" class="uk-input" autocomplete="address-line2" />
+                        <span asp-validation-for="Number" class="uk-text-danger"></span>
+                    </div>
+                </div>
+                <div class="uk-width-1-3@s">
+                    <label asp-for="City" class="uk-form-label"></label>
+                    <div class="uk-form-controls">
+                        <input asp-for="City" class="uk-input" autocomplete="address-level2" />
+                        <span asp-validation-for="City" class="uk-text-danger"></span>
+                    </div>
+                </div>
+                <div class="uk-width-1-3@s">
+                    <label asp-for="State" class="uk-form-label"></label>
+                    <div class="uk-form-controls">
+                        <input asp-for="State" class="uk-input" autocomplete="address-level1" maxlength="2" />
+                        <span asp-validation-for="State" class="uk-text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="uk-margin">
+                <label asp-for="ProfilePhoto" class="uk-form-label"></label>
+                <div class="uk-form-controls">
+                    <input asp-for="ProfilePhoto" class="uk-input" type="file" accept="image/png,image/jpeg,image/gif,image/webp" />
+                    <span asp-validation-for="ProfilePhoto" class="uk-text-danger"></span>
+                </div>
+            </div>
+
+            <div class="uk-margin-large-top">
+                <button type="submit" class="uk-button uk-button-primary">Salvar usuario</button>
+                <a asp-action="Index" class="uk-button uk-button-default">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</section>
