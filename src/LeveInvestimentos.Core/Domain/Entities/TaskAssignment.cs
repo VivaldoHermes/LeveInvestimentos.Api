@@ -53,17 +53,17 @@ public sealed class TaskAssignment : DomainEntity
     {
         if (managerId == Guid.Empty)
         {
-            throw new ArgumentException("Manager is required.", nameof(managerId));
+            throw new ArgumentException("O gestor é obrigatório.", nameof(managerId));
         }
 
         if (subordinateId == Guid.Empty)
         {
-            throw new ArgumentException("Subordinate is required.", nameof(subordinateId));
+            throw new ArgumentException("O subordinado é obrigatório.", nameof(subordinateId));
         }
 
         if (managerId == subordinateId)
         {
-            throw new ArgumentException("Manager and subordinate must be different users.", nameof(subordinateId));
+            throw new ArgumentException("O gestor e o subordinado devem ser usuários diferentes.", nameof(subordinateId));
         }
 
         var normalizedDescription = NormalizeDescription(description);
@@ -72,7 +72,7 @@ public sealed class TaskAssignment : DomainEntity
 
         if (normalizedDueDate <= normalizedCreatedAt)
         {
-            throw new ArgumentException("Due date must be later than creation date.", nameof(dueDate));
+            throw new ArgumentException("A data limite deve ser posterior à data de criação.", nameof(dueDate));
         }
 
         var taskAssignment = new TaskAssignment(
@@ -98,7 +98,7 @@ public sealed class TaskAssignment : DomainEntity
     {
         if (Status != TaskAssignmentStatus.Pending)
         {
-            throw new InvalidOperationException("Only pending task assignments can be started.");
+            throw new InvalidOperationException("Somente tarefas pendentes podem ser iniciadas.");
         }
 
         Status = TaskAssignmentStatus.Started;
@@ -108,12 +108,12 @@ public sealed class TaskAssignment : DomainEntity
     {
         if (Status == TaskAssignmentStatus.Canceled)
         {
-            throw new InvalidOperationException("Canceled task assignments cannot be completed.");
+            throw new InvalidOperationException("Tarefas canceladas não podem ser finalizadas.");
         }
 
         if (Status == TaskAssignmentStatus.Completed)
         {
-            throw new InvalidOperationException("Task assignment is already completed.");
+            throw new InvalidOperationException("A tarefa já está finalizada.");
         }
 
         var normalizedCompletedAt = EnsureUtc(completedAt ?? DateTimeOffset.UtcNow);
@@ -134,7 +134,7 @@ public sealed class TaskAssignment : DomainEntity
     {
         if (Status == TaskAssignmentStatus.Completed)
         {
-            throw new InvalidOperationException("Completed task assignments cannot be canceled.");
+            throw new InvalidOperationException("Tarefas finalizadas não podem ser canceladas.");
         }
 
         Status = TaskAssignmentStatus.Canceled;
@@ -150,13 +150,13 @@ public sealed class TaskAssignment : DomainEntity
     {
         if (string.IsNullOrWhiteSpace(description))
         {
-            throw new ArgumentException("Description is required.", nameof(description));
+            throw new ArgumentException("A descrição é obrigatória.", nameof(description));
         }
 
         var trimmed = description.Trim();
         if (trimmed.Length > 2_000)
         {
-            throw new ArgumentException("Description cannot exceed 2000 characters.", nameof(description));
+            throw new ArgumentException("A descrição não pode exceder 2000 caracteres.", nameof(description));
         }
 
         return trimmed;

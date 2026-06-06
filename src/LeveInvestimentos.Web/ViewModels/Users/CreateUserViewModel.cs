@@ -8,7 +8,7 @@ namespace LeveInvestimentos.Web.ViewModels.Users;
 public sealed class CreateUserViewModel
 {
     [Required(ErrorMessage = "Informe o nome completo.")]
-    [StringLength(200, ErrorMessage = "O nome completo deve ter no maximo {1} caracteres.")]
+    [StringLength(200, ErrorMessage = "O nome completo deve ter no máximo {1} caracteres.")]
     [Display(Name = "Nome completo")]
     public string FullName { get; set; } = string.Empty;
 
@@ -18,7 +18,7 @@ public sealed class CreateUserViewModel
     public DateOnly? BirthDate { get; set; }
 
     [Required(ErrorMessage = "Informe o e-mail.")]
-    [EmailAddress(ErrorMessage = "Informe um e-mail valido.")]
+    [EmailAddress(ErrorMessage = "Informe um e-mail válido.")]
     [Display(Name = "E-mail")]
     public string Email { get; set; } = string.Empty;
 
@@ -27,17 +27,17 @@ public sealed class CreateUserViewModel
     public UserRole Role { get; set; } = UserRole.Subordinate;
 
     [Required(ErrorMessage = "Informe o logradouro.")]
-    [StringLength(200, ErrorMessage = "O logradouro deve ter no maximo {1} caracteres.")]
+    [StringLength(200, ErrorMessage = "O logradouro deve ter no máximo {1} caracteres.")]
     [Display(Name = "Logradouro")]
     public string Street { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "Informe o numero.")]
-    [StringLength(20, ErrorMessage = "O numero deve ter no maximo {1} caracteres.")]
-    [Display(Name = "Numero")]
+    [Required(ErrorMessage = "Informe o número.")]
+    [StringLength(20, ErrorMessage = "O número deve ter no máximo {1} caracteres.")]
+    [Display(Name = "Número")]
     public string Number { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Informe a cidade.")]
-    [StringLength(100, ErrorMessage = "A cidade deve ter no maximo {1} caracteres.")]
+    [StringLength(100, ErrorMessage = "A cidade deve ter no máximo {1} caracteres.")]
     [Display(Name = "Cidade")]
     public string City { get; set; } = string.Empty;
 

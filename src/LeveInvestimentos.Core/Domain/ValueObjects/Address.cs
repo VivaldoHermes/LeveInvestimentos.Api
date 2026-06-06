@@ -37,24 +37,41 @@ public sealed class Address
     {
         if (string.IsNullOrWhiteSpace(value))
         {
-            throw new ArgumentException("Address field is required.", parameterName);
+            throw new ArgumentException(GetRequiredMessage(parameterName), parameterName);
         }
 
         var trimmed = value.Trim();
         if (trimmed.Length > maxLength)
         {
-            throw new ArgumentException($"Address field cannot exceed {maxLength} characters.", parameterName);
+            throw new ArgumentException(GetMaxLengthMessage(parameterName, maxLength), parameterName);
         }
 
         return trimmed;
     }
+
+    private static string GetRequiredMessage(string parameterName) => parameterName switch
+    {
+        "street" => "O logradouro é obrigatório.",
+        "number" => "O número é obrigatório.",
+        "city" => "A cidade é obrigatória.",
+        "state" => "O estado é obrigatório.",
+        _ => "Campo de endereço obrigatório."
+    };
+
+    private static string GetMaxLengthMessage(string parameterName, int maxLength) => parameterName switch
+    {
+        "street" => $"O logradouro não pode exceder {maxLength} caracteres.",
+        "number" => $"O número não pode exceder {maxLength} caracteres.",
+        "city" => $"A cidade não pode exceder {maxLength} caracteres.",
+        _ => $"O campo de endereço não pode exceder {maxLength} caracteres."
+    };
 
     private static string ValidateState(string state)
     {
         var trimmed = Required(state, nameof(state), 2).ToUpperInvariant();
         if (trimmed.Length != 2 || !trimmed.All(char.IsLetter))
         {
-            throw new ArgumentException("State must use the two-letter abbreviation.", nameof(state));
+            throw new ArgumentException("Use a sigla do estado com 2 letras.", nameof(state));
         }
 
         return trimmed;

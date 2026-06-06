@@ -80,7 +80,7 @@ public sealed class LocalFileStorage : IFileStorage, IFileUrlResolver
 
         if (string.IsNullOrWhiteSpace(fileName))
         {
-            throw new ArgumentException("Informe uma foto valida.", nameof(fileName));
+            throw new ArgumentException("Informe uma foto válida.", nameof(fileName));
         }
 
         var extension = Path.GetExtension(fileName).ToLowerInvariant();
@@ -95,7 +95,7 @@ public sealed class LocalFileStorage : IFileStorage, IFileUrlResolver
 
         if (!MatchesAllowedImageSignature(bytes, extension))
         {
-            throw new InvalidOperationException("O conteudo do arquivo nao corresponde ao formato da foto enviada.");
+            throw new InvalidOperationException("O conteúdo do arquivo não corresponde ao formato da foto enviada.");
         }
 
         return new ValidatedImageFile(bytes, extension, GetContentType(extension), bytes.LongLength);
@@ -135,7 +135,7 @@ public sealed class LocalFileStorage : IFileStorage, IFileUrlResolver
 
             if (totalBytes > maxFileSizeBytes)
             {
-                throw new InvalidOperationException($"A foto deve ter no maximo {FormatFileSize(maxFileSizeBytes)}.");
+                throw new InvalidOperationException($"A foto deve ter no máximo {FormatFileSize(maxFileSizeBytes)}.");
             }
 
             await memoryStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
@@ -143,7 +143,7 @@ public sealed class LocalFileStorage : IFileStorage, IFileUrlResolver
 
         if (memoryStream.Length == 0)
         {
-            throw new InvalidOperationException("A foto enviada esta vazia.");
+            throw new InvalidOperationException("A foto enviada está vazia.");
         }
 
         return memoryStream.ToArray();

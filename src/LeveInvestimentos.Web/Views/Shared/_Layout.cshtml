@@ -20,7 +20,7 @@
                             <li><a asp-controller="TaskAssignments" asp-action="Index">Tarefas</a></li>
                             @if (User.IsInRole("Manager"))
                             {
-                                <li><a asp-controller="Users" asp-action="Index">Usuarios</a></li>
+                                <li><a asp-controller="Users" asp-action="Index">Usuários</a></li>
                             }
                             <li><span class="uk-navbar-item">@User.Identity.Name</span></li>
                             <li>

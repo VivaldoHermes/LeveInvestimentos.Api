@@ -11,9 +11,9 @@ public sealed class CreateTaskAssignmentViewModel
     [Display(Name = "Subordinado")]
     public Guid? SubordinateId { get; set; }
 
-    [Required(ErrorMessage = "Informe a descricao.")]
-    [StringLength(2000, ErrorMessage = "A descricao deve ter no maximo {1} caracteres.")]
-    [Display(Name = "Descricao")]
+    [Required(ErrorMessage = "Informe a descrição.")]
+    [StringLength(2000, ErrorMessage = "A descrição deve ter no máximo {1} caracteres.")]
+    [Display(Name = "Descrição")]
     public string Description { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Informe a data limite.")]

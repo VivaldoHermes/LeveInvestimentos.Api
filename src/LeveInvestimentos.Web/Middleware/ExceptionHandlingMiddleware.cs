@@ -43,7 +43,7 @@ public sealed class ExceptionHandlingMiddleware
             context.Response.ContentType = "text/html; charset=utf-8";
 
             await context.Response.WriteAsync(
-                "<!DOCTYPE html><html lang=\"pt-br\"><head><meta charset=\"utf-8\">" +
+                "<!DOCTYPE html><html lang=\"pt-BR\"><head><meta charset=\"utf-8\">" +
                 "<title>Erro inesperado</title></head><body>" +
                 "<h1>Ocorreu um erro inesperado</h1>" +
                 "<p>Tente novamente mais tarde. Se o problema persistir, contate o suporte.</p>" +

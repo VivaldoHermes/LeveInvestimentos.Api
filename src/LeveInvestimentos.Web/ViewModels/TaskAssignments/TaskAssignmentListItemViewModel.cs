@@ -29,8 +29,8 @@ public sealed class TaskAssignmentListItemViewModel
     {
         TaskAssignmentStatus.Pending => "Pendente",
         TaskAssignmentStatus.Started => "Em andamento",
-        TaskAssignmentStatus.Completed => "Concluida",
+        TaskAssignmentStatus.Completed => "Concluída",
         TaskAssignmentStatus.Canceled => "Cancelada",
-        _ => Status.ToString()
+        _ => "Desconhecido"
     };
 }

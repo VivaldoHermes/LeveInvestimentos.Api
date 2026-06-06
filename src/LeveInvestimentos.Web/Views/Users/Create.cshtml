@@ -2,12 +2,12 @@
 @model CreateUserViewModel
 
 @{
-    ViewData["Title"] = "Cadastro de usuarios";
+    ViewData["Title"] = "Cadastro de usuários";
 }
 
 <section class="uk-section uk-section-small">
     <div class="uk-container uk-container-small">
-        <h1 class="uk-heading-small">Cadastro de usuarios</h1>
+        <h1 class="uk-heading-small">Cadastro de usuários</h1>
 
         <form asp-action="Criar" method="post" enctype="multipart/form-data" class="uk-form-stacked">
             <div asp-validation-summary="ModelOnly" class="uk-alert-danger" uk-alert></div>
@@ -65,7 +65,7 @@
                 </div>
             </div>
 
-            <h2 class="uk-h3 uk-margin-large-top">Endereco</h2>
+            <h2 class="uk-h3 uk-margin-large-top">Endereço</h2>
 
             <div class="uk-margin">
                 <label asp-for="Street" class="uk-form-label"></label>
@@ -108,7 +108,7 @@
             </div>
 
             <div class="uk-margin-large-top">
-                <button type="submit" class="uk-button uk-button-primary">Salvar usuario</button>
+                <button type="submit" class="uk-button uk-button-primary">Salvar usuário</button>
                 <a asp-action="Index" class="uk-button uk-button-default">Cancelar</a>
             </div>
         </form>

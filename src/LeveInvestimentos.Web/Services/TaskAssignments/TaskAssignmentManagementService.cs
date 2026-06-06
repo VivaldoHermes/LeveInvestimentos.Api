@@ -183,7 +183,7 @@ public sealed class TaskAssignmentManagementService : ITaskAssignmentManagementS
             BuildStatusOption(null, "Todos", selectedStatus),
             BuildStatusOption(TaskAssignmentStatus.Pending, "Pendente", selectedStatus),
             BuildStatusOption(TaskAssignmentStatus.Started, "Em andamento", selectedStatus),
-            BuildStatusOption(TaskAssignmentStatus.Completed, "Concluida", selectedStatus),
+            BuildStatusOption(TaskAssignmentStatus.Completed, "Concluída", selectedStatus),
             BuildStatusOption(TaskAssignmentStatus.Canceled, "Cancelada", selectedStatus)
         };
     }

@@ -59,6 +59,7 @@ public static class DependencyInjection
                 options.SignIn.RequireConfirmedAccount = false;
             })
             .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddErrorDescriber<PortugueseIdentityErrorDescriber>()
             .AddDefaultTokenProviders();
 
         services.AddSingleton<IPasswordGenerator, PasswordGenerator>();

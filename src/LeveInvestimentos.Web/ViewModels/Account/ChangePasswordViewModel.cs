@@ -17,7 +17,7 @@ public sealed class ChangePasswordViewModel
 
     [Required(ErrorMessage = "Confirme a nova senha.")]
     [DataType(DataType.Password)]
-    [Compare(nameof(NewPassword), ErrorMessage = "A confirmacao deve ser igual a nova senha.")]
+    [Compare(nameof(NewPassword), ErrorMessage = "A confirmação deve ser igual à nova senha.")]
     [Display(Name = "Confirmar nova senha")]
     public string ConfirmPassword { get; set; } = string.Empty;
 }

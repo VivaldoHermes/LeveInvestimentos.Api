@@ -328,43 +328,90 @@ Objetivo da camada: receber o arquivo bruto vindo da Web, validar, salvar no sto
 
 ## 13. Testes
 
-- [ ] `[Tests]` Adicionar pacotes xUnit. Criterio de pronto: projeto executa testes xUnit.
-- [ ] `[Tests]` Adicionar FluentAssertions. Criterio de pronto: assertions fluent compilaram.
-- [ ] `[Tests]` Adicionar NSubstitute. Criterio de pronto: mocks/substitutes podem ser criados.
-- [ ] `[Tests]` Adicionar pacote de integration testing. Criterio de pronto: `WebApplicationFactory` pode ser usado.
-- [ ] `[Tests]` Criar teste para `PhoneNumber` valido. Criterio de pronto: telefone aceito cria instancia.
-- [ ] `[Tests]` Criar teste para `PhoneNumber` invalido. Criterio de pronto: telefone invalido falha.
-- [ ] `[Tests]` Criar teste para `Address` valido. Criterio de pronto: endereco aceito cria instancia.
-- [ ] `[Tests]` Criar teste para `Address` incompleto. Criterio de pronto: endereco incompleto falha.
-- [ ] `[Tests]` Criar teste para `TaskAssignment.Create` valido. Criterio de pronto: tarefa nasce pendente e com evento atribuido.
-- [ ] `[Tests]` Criar teste para `TaskAssignment.Create` com descricao vazia. Criterio de pronto: criacao falha.
-- [ ] `[Tests]` Criar teste para `TaskAssignment.Create` com data limite invalida. Criterio de pronto: criacao falha.
-- [ ] `[Tests]` Criar teste para `TaskAssignment.Start` em tarefa pendente. Criterio de pronto: status vira `Started`.
-- [ ] `[Tests]` Criar teste para `TaskAssignment.Start` em tarefa concluida ou cancelada. Criterio de pronto: regra bloqueia transicao invalida.
-- [ ] `[Tests]` Criar teste para `TaskAssignment.Complete` em tarefa pendente. Criterio de pronto: status vira concluida.
-- [ ] `[Tests]` Criar teste para `TaskAssignmentCompletedEvent`. Criterio de pronto: evento e gerado ao finalizar.
-- [ ] `[Tests]` Criar teste para `TaskAssignment.Complete` em tarefa cancelada. Criterio de pronto: regra bloqueia.
-- [ ] `[Tests]` Criar teste para `TaskAssignment.Cancel` em tarefa pendente. Criterio de pronto: status vira cancelada.
-- [ ] `[Tests]` Criar teste para `TaskAssignment.Cancel` em tarefa concluida. Criterio de pronto: regra bloqueia.
-- [ ] `[Tests]` Criar teste para `TaskAssignment.IsOverdue`. Criterio de pronto: prazo vencido retorna verdadeiro quando aplicavel.
-- [ ] `[Tests]` Criar teste de `UserService` criando usuario valido. Criterio de pronto: service retorna sucesso.
-- [ ] `[Tests]` Criar teste de `UserService` com dados invalidos. Criterio de pronto: service retorna falha.
-- [ ] `[Tests]` Criar teste de `UserService` com e-mail duplicado. Criterio de pronto: service retorna falha por unicidade.
-- [ ] `[Tests]` Criar teste de validacao de `BirthDate` futura. Criterio de pronto: data de nascimento no futuro e rejeitada.
-- [ ] `[Tests]` Criar teste de hashing de senha. Criterio de pronto: senha do usuario semeado nao e armazenada em texto plano.
-- [ ] `[Tests]` Criar teste de `TaskAssignmentService` criando tarefa valida. Criterio de pronto: repository e unit of work sao chamados.
-- [ ] `[Tests]` Criar teste de `TaskAssignmentService` criando tarefa para subordinado de outro gestor (anti-IDOR). Criterio de pronto: retorna falha.
-- [ ] `[Tests]` Criar teste de `TaskAssignmentService` finalizando tarefa do subordinado correto. Criterio de pronto: retorna sucesso.
-- [ ] `[Tests]` Criar teste de `TaskAssignmentService` finalizando tarefa de outro subordinado. Criterio de pronto: retorna falha.
-- [ ] `[Tests]` Criar teste de `TaskAssignmentService` cancelando tarefa com permissao. Criterio de pronto: retorna sucesso.
-- [ ] `[Tests]` Criar teste de login com gestor padrao. Criterio de pronto: autenticacao retorna sucesso.
-- [ ] `[Tests]` Criar teste de cadastro de usuario por gestor. Criterio de pronto: POST autorizado cria usuario.
-- [ ] `[Tests]` Criar teste de bloqueio de cadastro por subordinado. Criterio de pronto: subordinado recebe 403.
-- [ ] `[Tests]` Criar teste de criacao de tarefa por gestor. Criterio de pronto: tarefa e persistida.
-- [ ] `[Tests]` Criar teste de finalizacao de tarefa por subordinado. Criterio de pronto: status muda para concluida.
-- [ ] `[Tests]` Criar teste de Outbox ao criar tarefa. Criterio de pronto: mensagem de tarefa atribuida e gerada.
-- [ ] `[Tests]` Criar teste de Outbox ao finalizar tarefa. Criterio de pronto: mensagem de tarefa finalizada e gerada.
-- [ ] `[Tests]` Executar `dotnet test`. Criterio de pronto: todos os testes passam.
+```
+Você é um Desenvolvedor Senior especialista em testes unitários, arquitetura limpa, SOLID, segurança e qualidade de software.
+
+Sua missão é analisar este projeto inteiro e desenvolver uma suíte de testes unitários realmente útil, crítica e confiável. O objetivo NÃO é apenas fazer os testes passarem. O objetivo é garantir que cada arquivo, classe, função e regra de negócio esteja sendo validada corretamente, cobrindo cenários reais, cenários de erro, casos extremos e possíveis falhas de segurança.
+
+## Objetivo principal
+
+Analise todos os arquivos relevantes do projeto, entenda a responsabilidade de cada módulo, classe, função, serviço, controller, repository, middleware, validator, helper, DTO, use case ou qualquer outro componente, e crie testes unitários que validem se eles fazem exatamente o que deveriam fazer.
+
+Priorize qualidade, clareza e cobertura lógica real, não apenas cobertura numérica.
+
+---
+
+## Regras importantes
+
+1. Antes de escrever testes, faça uma análise técnica do projeto.
+2. Entenda a arquitetura usada no projeto.
+3. Identifique responsabilidades de cada camada.
+4. Identifique quais arquivos realmente precisam de testes unitários.
+5. Não crie testes inúteis apenas para aumentar cobertura.
+6. Não teste detalhes internos desnecessários.
+7. Teste comportamento observável, regras de negócio, validações, fluxos de erro e contratos públicos.
+8. Seja crítico: se uma função estiver difícil de testar, explique se isso indica problema de design.
+9. Se encontrar código com baixa testabilidade, acoplamento excessivo ou responsabilidade misturada, sugira refatorações seguras antes ou durante os testes.
+10. Não altere comportamento de produção sem necessidade.
+11. Não faça mocks excessivos quando isso reduzir a confiança do teste.
+12. Não dependa de banco real, API externa, sistema de arquivos real ou rede em testes unitários, exceto se o projeto já tiver uma estratégia clara para isso.
+13. Garanta que os testes sejam determinísticos, rápidos e isolados.
+14. Garanta que os testes sejam fáceis de entender e manter.
+
+---
+
+## Processo obrigatório
+
+### Etapa 1 — Mapeamento do projeto
+
+Analise a estrutura do projeto e identifique:
+
+- linguagem e framework usados;
+- framework de testes usado ou mais adequado;
+- arquitetura do projeto;
+- principais camadas;
+- principais pontos de regra de negócio;
+- dependências externas;
+- pontos de risco;
+- arquivos com maior prioridade para testes.
+
+Retorne um resumo técnico antes de implementar qualquer teste.
+
+---
+
+### Etapa 2 — Análise arquivo por arquivo
+
+Para cada arquivo relevante, faça a seguinte análise:
+
+```md
+Arquivo: caminho/do/arquivo
+
+Responsabilidade:
+- Explique o que esse arquivo deveria fazer.
+
+Dependências:
+- Liste dependências internas e externas.
+
+Comportamentos importantes:
+- Liste os comportamentos que precisam ser garantidos.
+
+Cenários de teste necessários:
+- Cenário feliz.
+- Cenários de erro.
+- Casos extremos.
+- Entradas inválidas.
+- Falhas de dependências.
+- Cenários de segurança, quando aplicável.
+
+Riscos:
+- Explique o que pode quebrar ou gerar bug nesse arquivo.
+
+Prioridade:
+- Alta, média ou baixa.
+
+Estratégia de teste:
+- Explique como testar esse arquivo com qualidade.
+```
 
 ## 14. Documentacao e Entrega
 

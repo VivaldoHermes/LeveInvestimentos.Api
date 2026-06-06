@@ -18,19 +18,19 @@ public sealed class PhoneNumber
     {
         if (string.IsNullOrWhiteSpace(value))
         {
-            throw new ArgumentException("Phone number is required.", nameof(value));
+            throw new ArgumentException("O telefone é obrigatório.", nameof(value));
         }
 
         var trimmed = value.Trim();
         if (!AllowedCharacters.IsMatch(trimmed))
         {
-            throw new ArgumentException("Phone number contains invalid characters.", nameof(value));
+            throw new ArgumentException("O telefone contém caracteres inválidos.", nameof(value));
         }
 
         var digits = new string(trimmed.Where(char.IsDigit).ToArray());
         if (digits.Length is < 10 or > 13)
         {
-            throw new ArgumentException("Phone number must contain 10 to 13 digits.", nameof(value));
+            throw new ArgumentException("O telefone deve conter de 10 a 13 dígitos.", nameof(value));
         }
 
         Value = trimmed;

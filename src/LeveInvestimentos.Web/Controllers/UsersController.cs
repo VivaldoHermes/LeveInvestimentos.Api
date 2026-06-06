@@ -70,7 +70,7 @@ public sealed class UsersController : Controller
             return View("Create", model);
         }
 
-        TempData["SuccessMessage"] = "Usuario criado com sucesso. A senha temporaria foi enviada por e-mail para troca no primeiro login.";
+        TempData["SuccessMessage"] = "Usuário criado com sucesso. A senha temporária foi enviada por e-mail para troca no primeiro acesso.";
         return RedirectToAction(nameof(Index));
     }
 

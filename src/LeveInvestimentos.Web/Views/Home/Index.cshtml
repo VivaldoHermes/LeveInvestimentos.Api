@@ -1,18 +1,18 @@
 @model HomeDashboardViewModel
 
 @{
-    ViewData["Title"] = "Inicio";
+    ViewData["Title"] = "Início";
 }
 
 <section class="uk-section uk-section-small">
     <div class="uk-flex uk-flex-between uk-flex-middle uk-margin">
         <div>
-            <h1 class="uk-heading-small uk-margin-remove">Inicio</h1>
+            <h1 class="uk-heading-small uk-margin-remove">Início</h1>
             <p class="uk-text-muted uk-margin-small-top">Acompanhamento de tarefas e equipe.</p>
         </div>
         <div class="uk-button-group">
             <a asp-controller="TaskAssignments" asp-action="Criar" class="uk-button uk-button-primary">Criar tarefa</a>
-            <a asp-controller="Users" asp-action="Criar" class="uk-button uk-button-default">Cadastrar usuario</a>
+            <a asp-controller="Users" asp-action="Criar" class="uk-button uk-button-default">Cadastrar usuário</a>
             <a asp-controller="TaskAssignments" asp-action="Index" class="uk-button uk-button-default">Ver tarefas</a>
         </div>
     </div>
@@ -38,7 +38,7 @@
         </div>
         <div>
             <div class="uk-card uk-card-default uk-card-body">
-                <span class="uk-text-meta">Proximos 7 dias</span>
+                <span class="uk-text-meta">Próximos 7 dias</span>
                 <div class="uk-heading-small uk-margin-remove">@Model.DueSoonTasks</div>
             </div>
         </div>
@@ -63,7 +63,7 @@
                     <table class="uk-table uk-table-divider uk-table-hover uk-table-middle">
                         <thead>
                             <tr>
-                                <th>Descricao</th>
+                                <th>Descrição</th>
                                 <th>Subordinado</th>
                                 <th>Data limite</th>
                                 <th>Status</th>
@@ -99,7 +99,7 @@
                     <div class="uk-text-large">@Model.TotalTasks</div>
                 </li>
                 <li>
-                    <span class="uk-text-meta">Concluidas</span>
+                    <span class="uk-text-meta">Concluídas</span>
                     <div class="uk-text-large">@Model.CompletedTasks</div>
                 </li>
                 <li>
@@ -107,7 +107,7 @@
                     <div class="uk-text-large">@Model.CanceledTasks</div>
                 </li>
                 <li>
-                    <span class="uk-text-meta">Usuarios gerenciados</span>
+                    <span class="uk-text-meta">Usuários gerenciados</span>
                     <div class="uk-text-large">@Model.ManagedUsers</div>
                 </li>
                 <li>

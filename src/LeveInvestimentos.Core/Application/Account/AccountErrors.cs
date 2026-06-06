@@ -6,15 +6,15 @@ public static class AccountErrors
 {
     public static readonly Error InvalidCredentials = new(
         "Account.InvalidCredentials",
-        "E-mail ou senha invalidos.");
+        "E-mail ou senha inválidos.");
 
     public static readonly Error UserNotFound = new(
         "Account.UserNotFound",
-        "Usuario nao encontrado.");
+        "Usuário não encontrado.");
 
     public static readonly Error UserIdRequired = new(
         "Account.UserIdRequired",
-        "Usuario autenticado nao foi identificado.");
+        "Usuário autenticado não foi identificado.");
 
     public static readonly Error PasswordDataRequired = new(
         "Account.PasswordDataRequired",

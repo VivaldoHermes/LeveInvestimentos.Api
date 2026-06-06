@@ -24,17 +24,17 @@ public sealed class TaskAssignmentCreatedEmailHandler
         var subordinate = await _userRepository.GetByIdAsync(domainEvent.SubordinateId, cancellationToken);
         if (subordinate?.Email is null)
         {
-            return Result.Failure(new Error("Notifications.SubordinateEmailNotFound", "Subordinate e-mail was not found."));
+            return Result.Failure(new Error("Notifications.SubordinateEmailNotFound", "E-mail do subordinado não encontrado."));
         }
 
         var body = string.Join(
             System.Environment.NewLine,
-            "Nova tarefa atribuida.",
+            "Nova tarefa atribuída.",
             string.Empty,
             $"Mensagem: {domainEvent.Description}",
             $"Prazo: {domainEvent.DueDate:dd/MM/yyyy HH:mm}");
 
-        await _emailOutbox.EnqueueAsync(subordinate.Email, "Nova tarefa atribuida", body, cancellationToken);
+        await _emailOutbox.EnqueueAsync(subordinate.Email, "Nova tarefa atribuída", body, cancellationToken);
 
         return Result.Success();
     }

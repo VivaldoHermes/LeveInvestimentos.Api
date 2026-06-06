@@ -84,13 +84,13 @@ public sealed class User : IdentityUser<Guid>
     {
         if (string.IsNullOrWhiteSpace(value))
         {
-            throw new ArgumentException("User field is required.", parameterName);
+            throw new ArgumentException(GetRequiredMessage(parameterName), parameterName);
         }
 
         var trimmed = value.Trim();
         if (trimmed.Length > maxLength)
         {
-            throw new ArgumentException($"User field cannot exceed {maxLength} characters.", parameterName);
+            throw new ArgumentException(GetMaxLengthMessage(parameterName, maxLength), parameterName);
         }
 
         return trimmed;
@@ -101,17 +101,30 @@ public sealed class User : IdentityUser<Guid>
         var trimmed = value.Trim();
         if (trimmed.Length > maxLength)
         {
-            throw new ArgumentException($"User field cannot exceed {maxLength} characters.", parameterName);
+            throw new ArgumentException(GetMaxLengthMessage(parameterName, maxLength), parameterName);
         }
 
         return trimmed;
     }
 
+    private static string GetRequiredMessage(string parameterName) => parameterName switch
+    {
+        "fullName" => "O nome completo é obrigatório.",
+        _ => "Campo obrigatório."
+    };
+
+    private static string GetMaxLengthMessage(string parameterName, int maxLength) => parameterName switch
+    {
+        "fullName" => $"O nome completo não pode exceder {maxLength} caracteres.",
+        "profilePhotoStorageKey" => $"A foto não pode exceder {maxLength} caracteres.",
+        _ => $"O campo não pode exceder {maxLength} caracteres."
+    };
+
     private static string ValidateEmail(string email)
     {
         if (string.IsNullOrWhiteSpace(email))
         {
-            throw new ArgumentException("A valid e-mail is required.", nameof(email));
+            throw new ArgumentException("Informe um e-mail válido.", nameof(email));
         }
 
         var trimmed = email.Trim();
@@ -127,14 +140,14 @@ public sealed class User : IdentityUser<Guid>
         {
         }
 
-        throw new ArgumentException("A valid e-mail is required.", nameof(email));
+        throw new ArgumentException("Informe um e-mail válido.", nameof(email));
     }
 
     private static void ValidateBirthDate(DateOnly birthDate, DateOnly today)
     {
         if (birthDate > today)
         {
-            throw new ArgumentException("Birth date cannot be in the future.", nameof(birthDate));
+            throw new ArgumentException("A data de nascimento não pode ser futura.", nameof(birthDate));
         }
     }
 
@@ -142,12 +155,12 @@ public sealed class User : IdentityUser<Guid>
     {
         if (role == UserRole.Subordinate && (managerId is null || managerId == Guid.Empty))
         {
-            throw new ArgumentException("Subordinate users must have a manager.", nameof(managerId));
+            throw new ArgumentException("Subordinados devem ter um gestor.", nameof(managerId));
         }
 
         if (role == UserRole.Manager && managerId is not null)
         {
-            throw new ArgumentException("Manager users cannot have a manager.", nameof(managerId));
+            throw new ArgumentException("Gestores não podem ter um gestor.", nameof(managerId));
         }
     }
 }

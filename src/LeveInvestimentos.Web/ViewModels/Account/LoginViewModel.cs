@@ -11,6 +11,6 @@ public sealed class LoginViewModel
     [Display(Name = "Senha")]
     public string Password { get; set; } = string.Empty;
 
-    [Display(Name = "Lembrar login")]
+    [Display(Name = "Manter conectado")]
     public bool RememberMe { get; set; }
 }

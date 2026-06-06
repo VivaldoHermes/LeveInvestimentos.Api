@@ -62,7 +62,7 @@ public sealed class UserService : IUserService
 
         if (await _userRepository.ExistsByEmailAsync(user.Email!, cancellationToken))
         {
-            return Result<UserDetailsDto>.Failure(new Error("Users.EmailAlreadyExists", "E-mail is already registered."));
+            return Result<UserDetailsDto>.Failure(new Error("Users.EmailAlreadyExists", "Este e-mail já está cadastrado."));
         }
 
         if (user.Role == UserRole.Subordinate)
@@ -70,7 +70,7 @@ public sealed class UserService : IUserService
             var manager = await _userRepository.GetByIdAsync(user.ManagerId!.Value, cancellationToken);
             if (manager is null || manager.Role != UserRole.Manager)
             {
-                return Result<UserDetailsDto>.Failure(new Error("Users.InvalidManager", "Manager was not found."));
+                return Result<UserDetailsDto>.Failure(new Error("Users.InvalidManager", "Gestor não encontrado."));
             }
         }
 
@@ -87,12 +87,12 @@ public sealed class UserService : IUserService
     {
         if (userId == Guid.Empty)
         {
-            return Result<UserDetailsDto>.Failure(new Error("Users.IdRequired", "User id is required."));
+            return Result<UserDetailsDto>.Failure(new Error("Users.IdRequired", "O usuário é obrigatório."));
         }
 
         var user = await _userRepository.GetByIdAsync(userId, cancellationToken);
         return user is null
-            ? Result<UserDetailsDto>.Failure(new Error("Users.NotFound", "User was not found."))
+            ? Result<UserDetailsDto>.Failure(new Error("Users.NotFound", "Usuário não encontrado."))
             : Result<UserDetailsDto>.Success(MapDetails(user));
     }
 
@@ -102,7 +102,7 @@ public sealed class UserService : IUserService
     {
         if (managerId == Guid.Empty)
         {
-            return Result<IReadOnlyCollection<UserListItemDto>>.Failure(new Error("Users.ManagerRequired", "Manager id is required."));
+            return Result<IReadOnlyCollection<UserListItemDto>>.Failure(new Error("Users.ManagerRequired", "O gestor é obrigatório."));
         }
 
         var users = await _userRepository.ListByManagerIdAsync(managerId, cancellationToken);
@@ -115,7 +115,7 @@ public sealed class UserService : IUserService
     {
         if (managerId == Guid.Empty)
         {
-            return Result<IReadOnlyCollection<UserListItemDto>>.Failure(new Error("Users.ManagerRequired", "Manager id is required."));
+            return Result<IReadOnlyCollection<UserListItemDto>>.Failure(new Error("Users.ManagerRequired", "O gestor é obrigatório."));
         }
 
         var users = await _userRepository.ListManagedUsersAsync(managerId, cancellationToken);
@@ -124,7 +124,7 @@ public sealed class UserService : IUserService
 
     private Task SendCredentialsEmailAsync(User user, string password, CancellationToken cancellationToken)
     {
-        var body = $"Acesso criado para {user.FullName}. E-mail: {user.Email}. Senha temporaria: {password}. Troque a senha no primeiro login.";
+        var body = $"Acesso criado para {user.FullName}. E-mail: {user.Email}. Senha temporária: {password}. Troque a senha no primeiro acesso.";
         return _emailOutbox.EnqueueAsync(user.Email!, "Credenciais de acesso", body, cancellationToken);
     }
 

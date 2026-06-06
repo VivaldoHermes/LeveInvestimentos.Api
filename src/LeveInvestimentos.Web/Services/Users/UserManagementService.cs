@@ -86,7 +86,7 @@ public sealed class UserManagementService : IUserManagementService
     {
         return new Error(
             InvalidProfilePhotoCode,
-            string.IsNullOrWhiteSpace(message) ? "A foto enviada nao e valida." : message);
+            string.IsNullOrWhiteSpace(message) ? "A foto enviada não é válida." : message);
     }
 
     private static CreateUserCommand ToCommand(

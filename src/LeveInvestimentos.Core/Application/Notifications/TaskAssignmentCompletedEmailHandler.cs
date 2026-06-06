@@ -24,13 +24,13 @@ public sealed class TaskAssignmentCompletedEmailHandler
         var manager = await _userRepository.GetByIdAsync(domainEvent.ManagerId, cancellationToken);
         if (manager?.Email is null)
         {
-            return Result.Failure(new Error("Notifications.ManagerEmailNotFound", "Manager e-mail was not found."));
+            return Result.Failure(new Error("Notifications.ManagerEmailNotFound", "E-mail do gestor não encontrado."));
         }
 
         var subordinate = await _userRepository.GetByIdAsync(domainEvent.SubordinateId, cancellationToken);
         if (subordinate is null)
         {
-            return Result.Failure(new Error("Notifications.SubordinateNotFound", "Subordinate was not found."));
+            return Result.Failure(new Error("Notifications.SubordinateNotFound", "Subordinado não encontrado."));
         }
 
         var body = string.Join(

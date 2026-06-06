@@ -43,18 +43,18 @@ public sealed class TaskAssignmentService : ITaskAssignmentService
         var manager = await _userRepository.GetByIdAsync(command.ManagerId, cancellationToken);
         if (manager is null || manager.Role != UserRole.Manager)
         {
-            return Result<TaskAssignmentDetailsDto>.Failure(new Error("TaskAssignments.InvalidManager", "Manager was not found."));
+            return Result<TaskAssignmentDetailsDto>.Failure(new Error("TaskAssignments.InvalidManager", "Gestor não encontrado."));
         }
 
         var subordinate = await _userRepository.GetByIdAsync(command.SubordinateId, cancellationToken);
         if (subordinate is null || subordinate.Role != UserRole.Subordinate)
         {
-            return Result<TaskAssignmentDetailsDto>.Failure(new Error("TaskAssignments.InvalidSubordinate", "Subordinate was not found."));
+            return Result<TaskAssignmentDetailsDto>.Failure(new Error("TaskAssignments.InvalidSubordinate", "Subordinado não encontrado."));
         }
 
         if (subordinate.ManagerId != manager.Id)
         {
-            return Result<TaskAssignmentDetailsDto>.Failure(new Error("TaskAssignments.SubordinateNotManaged", "Subordinate does not belong to this manager."));
+            return Result<TaskAssignmentDetailsDto>.Failure(new Error("TaskAssignments.SubordinateNotManaged", "O subordinado não pertence a este gestor."));
         }
 
         var taskAssignment = TaskAssignment.Create(
@@ -83,12 +83,12 @@ public sealed class TaskAssignmentService : ITaskAssignmentService
         var taskAssignment = await _taskAssignmentRepository.GetByIdAsync(command.TaskAssignmentId, cancellationToken);
         if (taskAssignment is null)
         {
-            return Result<TaskAssignmentDetailsDto>.Failure(new Error("TaskAssignments.NotFound", "Task assignment was not found."));
+            return Result<TaskAssignmentDetailsDto>.Failure(new Error("TaskAssignments.NotFound", "Tarefa não encontrada."));
         }
 
         if (taskAssignment.SubordinateId != command.CurrentUserId)
         {
-            return Result<TaskAssignmentDetailsDto>.Failure(new Error("TaskAssignments.Forbidden", "Only the responsible subordinate can start this task."));
+            return Result<TaskAssignmentDetailsDto>.Failure(new Error("TaskAssignments.Forbidden", "Somente o subordinado responsável pode iniciar esta tarefa."));
         }
 
         try
@@ -117,12 +117,12 @@ public sealed class TaskAssignmentService : ITaskAssignmentService
         var taskAssignment = await _taskAssignmentRepository.GetByIdAsync(command.TaskAssignmentId, cancellationToken);
         if (taskAssignment is null)
         {
-            return Result<TaskAssignmentDetailsDto>.Failure(new Error("TaskAssignments.NotFound", "Task assignment was not found."));
+            return Result<TaskAssignmentDetailsDto>.Failure(new Error("TaskAssignments.NotFound", "Tarefa não encontrada."));
         }
 
         if (taskAssignment.SubordinateId != command.CurrentUserId)
         {
-            return Result<TaskAssignmentDetailsDto>.Failure(new Error("TaskAssignments.Forbidden", "Only the responsible subordinate can complete this task."));
+            return Result<TaskAssignmentDetailsDto>.Failure(new Error("TaskAssignments.Forbidden", "Somente o subordinado responsável pode finalizar esta tarefa."));
         }
 
         try
@@ -151,12 +151,12 @@ public sealed class TaskAssignmentService : ITaskAssignmentService
         var taskAssignment = await _taskAssignmentRepository.GetByIdAsync(command.TaskAssignmentId, cancellationToken);
         if (taskAssignment is null)
         {
-            return Result<TaskAssignmentDetailsDto>.Failure(new Error("TaskAssignments.NotFound", "Task assignment was not found."));
+            return Result<TaskAssignmentDetailsDto>.Failure(new Error("TaskAssignments.NotFound", "Tarefa não encontrada."));
         }
 
         if (taskAssignment.ManagerId != command.CurrentUserId)
         {
-            return Result<TaskAssignmentDetailsDto>.Failure(new Error("TaskAssignments.Forbidden", "Only the manager that created this task can cancel it."));
+            return Result<TaskAssignmentDetailsDto>.Failure(new Error("TaskAssignments.Forbidden", "Somente o gestor que criou esta tarefa pode cancelá-la."));
         }
 
         try
@@ -179,7 +179,7 @@ public sealed class TaskAssignmentService : ITaskAssignmentService
     {
         if (managerId == Guid.Empty)
         {
-            return Result<IReadOnlyCollection<TaskAssignmentListItemDto>>.Failure(new Error("TaskAssignments.ManagerRequired", "Manager id is required."));
+            return Result<IReadOnlyCollection<TaskAssignmentListItemDto>>.Failure(new Error("TaskAssignments.ManagerRequired", "O gestor é obrigatório."));
         }
 
         var taskAssignments = await _taskAssignmentRepository.ListByManagerIdAsync(managerId, status, cancellationToken);
@@ -194,7 +194,7 @@ public sealed class TaskAssignmentService : ITaskAssignmentService
     {
         if (subordinateId == Guid.Empty)
         {
-            return Result<IReadOnlyCollection<TaskAssignmentListItemDto>>.Failure(new Error("TaskAssignments.SubordinateRequired", "Subordinate id is required."));
+            return Result<IReadOnlyCollection<TaskAssignmentListItemDto>>.Failure(new Error("TaskAssignments.SubordinateRequired", "O subordinado é obrigatório."));
         }
 
         var taskAssignments = await _taskAssignmentRepository.ListBySubordinateIdAsync(subordinateId, status, cancellationToken);
