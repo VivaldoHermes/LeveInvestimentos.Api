@@ -16,14 +16,6 @@ Se o seu terminal nao reconhecer `docker compose`, use o comando legado:
 docker-compose up -d
 ```
 
-Isso cria um container `leve-investimentos-sqlserver` na porta `1433`, com banco persistido no volume `leve-investimentos-sqlserver-data`.
-
-A connection string de desenvolvimento fica em `src/LeveInvestimentos.Web/appsettings.Development.json`:
-
-```text
-Server=localhost,1433;Database=LeveInvestimentos;User Id=sa;Password=Leve@123456;Encrypt=False;TrustServerCertificate=True;MultipleActiveResultSets=true
-```
-
 Depois que o container estiver em execucao, aplique as migrations:
 
 ```powershell
@@ -46,22 +38,7 @@ docker compose logs sqlserver
 docker compose down
 ```
 
-Se estiver usando `docker-compose`, mantenha o hifen nesses comandos: `docker-compose ps`, `docker-compose logs sqlserver` e `docker-compose down`.
+## Primeiro Acesso
 
-## Configuracao SMTP local
-
-As chaves publicas de configuracao ficam em `src/LeveInvestimentos.Web/appsettings.json`, na secao `Email`. Nao grave usuario ou senha SMTP reais nesse arquivo.
-
-Para desenvolvimento, use User Secrets no projeto Web:
-
-```powershell
-dotnet user-secrets init --project src\LeveInvestimentos.Web\LeveInvestimentos.Web.csproj
-dotnet user-secrets set "Email:Host" "localhost" --project src\LeveInvestimentos.Web\LeveInvestimentos.Web.csproj
-dotnet user-secrets set "Email:Port" "25" --project src\LeveInvestimentos.Web\LeveInvestimentos.Web.csproj
-dotnet user-secrets set "Email:UserName" "seu-usuario-smtp" --project src\LeveInvestimentos.Web\LeveInvestimentos.Web.csproj
-dotnet user-secrets set "Email:Password" "sua-senha-smtp" --project src\LeveInvestimentos.Web\LeveInvestimentos.Web.csproj
-dotnet user-secrets set "Email:FromEmail" "nao-responda@leveinvestimentos.com.br" --project src\LeveInvestimentos.Web\LeveInvestimentos.Web.csproj
-dotnet user-secrets set "Email:UseSsl" "false" --project src\LeveInvestimentos.Web\LeveInvestimentos.Web.csproj
-```
-
-Para smoke tests locais, Papercut, MailHog ou outro servidor SMTP local pode escutar em `localhost:25` sem autenticacao. Em SMTP externo, configure `Email:UseSsl=true` e informe usuario/senha pelos User Secrets.
+E-mail: ti@leveinvestimentos.com.br
+Senha: teste123

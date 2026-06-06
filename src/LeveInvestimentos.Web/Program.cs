@@ -9,6 +9,7 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddEnvFile(".env", builder.Environment.ContentRootPath);
 builder.AddSerilogLogging();
 
 builder.Services

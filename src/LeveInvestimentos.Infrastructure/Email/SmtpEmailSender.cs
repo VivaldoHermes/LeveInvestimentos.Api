@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using LeveInvestimentos.Core.Abstractions;
@@ -48,12 +49,22 @@ public sealed class SmtpEmailSender : IEmailSender
         {
             await client.AuthenticateAsync(
                 _options.UserName,
-                _options.Password,
+                GetPassword(),
                 cancellationToken);
         }
 
         await client.SendAsync(message, cancellationToken);
         await client.DisconnectAsync(true, cancellationToken);
+    }
+
+    private string GetPassword()
+    {
+        if (!string.Equals(_options.Host, "smtp.gmail.com", StringComparison.OrdinalIgnoreCase))
+        {
+            return _options.Password;
+        }
+
+        return new string(_options.Password.Where(character => !char.IsWhiteSpace(character)).ToArray());
     }
 
     private static void ValidateMessage(string to, string subject, string body)
