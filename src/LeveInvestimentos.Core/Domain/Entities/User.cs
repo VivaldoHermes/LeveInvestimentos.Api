@@ -55,7 +55,8 @@ public sealed class User : IdentityUser<Guid>
         string profilePhotoStorageKey,
         UserRole role,
         DateOnly today,
-        Guid? managerId = null)
+        Guid? managerId = null,
+        Guid? id = null)
     {
         var normalizedFullName = Required(fullName, nameof(fullName), 200);
         var normalizedEmail = ValidateEmail(email);
@@ -65,7 +66,7 @@ public sealed class User : IdentityUser<Guid>
 
         return new User
         {
-            Id = Guid.NewGuid(),
+            Id = id ?? Guid.NewGuid(),
             UserName = normalizedEmail,
             Email = normalizedEmail,
             FullName = normalizedFullName,

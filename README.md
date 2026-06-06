@@ -43,3 +43,21 @@ Senha: teste123
 
 ![Pipeline HTTP](docs/img2.jpg)
 
+
+## Para Rodar os Testes
+
+Os testes usam SQLite em memoria e **nao precisam** do SQL Server ou do Docker em execucao.
+
+Comando recomendado (restaura, compila e executa):
+
+```powershell
+dotnet test tests\LeveInvestimentos.Tests\LeveInvestimentos.Tests.csproj
+```
+
+Se o codigo ja foi compilado e nada mudou desde a ultima execucao, voce pode pular restore e build:
+
+```powershell
+dotnet test tests\LeveInvestimentos.Tests\LeveInvestimentos.Tests.csproj --no-build --no-restore --verbosity minimal
+```
+
+Depois de alterar codigo ou adicionar testes, rode novamente sem `--no-build` para evitar executar binarios desatualizados.

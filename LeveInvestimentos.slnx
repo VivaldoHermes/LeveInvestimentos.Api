@@ -4,7 +4,5 @@
     <Project Path="src/LeveInvestimentos.Infrastructure/LeveInvestimentos.Infrastructure.csproj" />
     <Project Path="src/LeveInvestimentos.Web/LeveInvestimentos.Web.csproj" />
   </Folder>
-  <Folder Name="/tests/">
-    <Project Path="tests/LeveInvestimentos.Tests/LeveInvestimentos.Tests.csproj" />
-  </Folder>
+  <Folder Name="/tests/" />
 </Solution>

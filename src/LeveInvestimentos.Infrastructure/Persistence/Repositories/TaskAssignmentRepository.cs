@@ -35,10 +35,11 @@ public sealed class TaskAssignmentRepository : ITaskAssignmentRepository
         TaskAssignmentStatus? status = null,
         CancellationToken cancellationToken = default)
     {
-        return await ApplyStatusFilter(_dbContext.TaskAssignments.AsNoTracking(), status)
+        var tasks = await ApplyStatusFilter(_dbContext.TaskAssignments.AsNoTracking(), status)
             .Where(taskAssignment => taskAssignment.ManagerId == managerId)
-            .OrderBy(taskAssignment => taskAssignment.DueDate)
             .ToArrayAsync(cancellationToken);
+
+        return tasks.OrderBy(taskAssignment => taskAssignment.DueDate).ToArray();
     }
 
     public async Task<IReadOnlyCollection<TaskAssignment>> ListBySubordinateIdAsync(
@@ -46,10 +47,11 @@ public sealed class TaskAssignmentRepository : ITaskAssignmentRepository
         TaskAssignmentStatus? status = null,
         CancellationToken cancellationToken = default)
     {
-        return await ApplyStatusFilter(_dbContext.TaskAssignments.AsNoTracking(), status)
+        var tasks = await ApplyStatusFilter(_dbContext.TaskAssignments.AsNoTracking(), status)
             .Where(taskAssignment => taskAssignment.SubordinateId == subordinateId)
-            .OrderBy(taskAssignment => taskAssignment.DueDate)
             .ToArrayAsync(cancellationToken);
+
+        return tasks.OrderBy(taskAssignment => taskAssignment.DueDate).ToArray();
     }
 
     private static IQueryable<TaskAssignment> ApplyStatusFilter(
