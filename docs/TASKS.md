@@ -413,3 +413,5 @@ Objetivo da camada: receber o arquivo bruto vindo da Web, validar, salvar no sto
 - [ ] `[Manual]` Verificar e-mail de atribuicao no SMTP local. Criterio de pronto: subordinado recebe mensagem.
 - [ ] `[Manual]` Verificar e-mail de finalizacao no SMTP local. Criterio de pronto: gestor recebe mensagem.
 - [ ] `[Manual]` Executar README em maquina limpa ou ambiente limpo. Criterio de pronto: clone ate login funciona em ate 10 minutos.
+
+## 16. Corriger portugues front
