@@ -15,7 +15,7 @@ public sealed class User : IdentityUser<Guid>
         Address = null!;
         LandlinePhone = null!;
         MobilePhone = null!;
-        ProfilePhotoPath = string.Empty;
+        ProfilePhotoStorageKey = string.Empty;
     }
 
     public string FullName { get; private set; }
@@ -28,7 +28,7 @@ public sealed class User : IdentityUser<Guid>
 
     public PhoneNumber MobilePhone { get; private set; }
 
-    public string ProfilePhotoPath { get; private set; }
+    public string ProfilePhotoStorageKey { get; private set; }
 
     public Guid? ManagerId { get; private set; }
 
@@ -52,14 +52,14 @@ public sealed class User : IdentityUser<Guid>
         Address address,
         string landlinePhone,
         string mobilePhone,
-        string profilePhotoPath,
+        string profilePhotoStorageKey,
         UserRole role,
         DateOnly today,
         Guid? managerId = null)
     {
         var normalizedFullName = Required(fullName, nameof(fullName), 200);
         var normalizedEmail = ValidateEmail(email);
-        var normalizedProfilePhotoPath = Optional(profilePhotoPath, nameof(profilePhotoPath), 500);
+        var normalizedProfilePhotoStorageKey = Optional(profilePhotoStorageKey, nameof(profilePhotoStorageKey), 500);
         ValidateBirthDate(birthDate, today);
         ValidateManager(role, managerId);
 
@@ -73,7 +73,7 @@ public sealed class User : IdentityUser<Guid>
             Address = address ?? throw new ArgumentNullException(nameof(address)),
             LandlinePhone = new PhoneNumber(landlinePhone),
             MobilePhone = new PhoneNumber(mobilePhone),
-            ProfilePhotoPath = normalizedProfilePhotoPath,
+            ProfilePhotoStorageKey = normalizedProfilePhotoStorageKey,
             ManagerId = role == UserRole.Subordinate ? managerId : null,
             Role = role,
             MustChangePassword = true

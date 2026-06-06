@@ -15,7 +15,8 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(user => user.BirthDate)
             .IsRequired();
 
-        builder.Property(user => user.ProfilePhotoPath)
+        builder.Property(user => user.ProfilePhotoStorageKey)
+            .HasColumnName("ProfilePhotoStorageKey")
             .HasMaxLength(500)
             .IsRequired();
 

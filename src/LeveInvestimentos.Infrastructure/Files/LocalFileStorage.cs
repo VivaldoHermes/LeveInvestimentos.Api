@@ -9,18 +9,21 @@ using Microsoft.Extensions.Options;
 
 namespace LeveInvestimentos.Infrastructure.Files;
 
-public sealed class LocalFileStorage : IFileStorage
+public sealed class LocalFileStorage : IFileStorage, IFileUrlResolver
 {
     private const int BufferSize = 81920;
 
-    private readonly LocalFileStorageOptions _options;
+    private readonly string _uploadRootPath;
+    private readonly string _publicPathPrefix;
     private readonly ImageFileValidationOptions _validationOptions;
 
     public LocalFileStorage(
-        IOptions<LocalFileStorageOptions> options,
+        string uploadRootPath,
+        string publicPathPrefix,
         IOptions<ImageFileValidationOptions> validationOptions)
     {
-        _options = options.Value;
+        _uploadRootPath = uploadRootPath;
+        _publicPathPrefix = publicPathPrefix;
         _validationOptions = validationOptions.Value;
     }
 
@@ -36,32 +39,35 @@ public sealed class LocalFileStorage : IFileStorage
             contentType,
             cancellationToken);
 
-        Directory.CreateDirectory(_options.UploadRootPath);
+        Directory.CreateDirectory(_uploadRootPath);
 
         var storedFileName = $"{Guid.NewGuid():N}{validatedFile.Extension}";
-        var destinationPath = Path.Combine(_options.UploadRootPath, storedFileName);
+        var destinationPath = Path.Combine(_uploadRootPath, storedFileName);
 
         await File.WriteAllBytesAsync(destinationPath, validatedFile.Bytes, cancellationToken);
 
-        var publicUrl = BuildPublicPath(storedFileName);
-
         return new StoredFile(
-            publicUrl,
             storedFileName,
             validatedFile.ContentType,
             validatedFile.SizeBytes);
     }
 
-    private string BuildPublicPath(string storedFileName)
+    public string ResolvePublicUrl(string storageKey)
     {
-        var publicPathPrefix = _options.PublicPathPrefix.Trim('/').Replace('\\', '/');
+        if (string.IsNullOrWhiteSpace(storageKey))
+        {
+            return string.Empty;
+        }
+
+        var normalizedStorageKey = storageKey.Trim().TrimStart('/', '\\').Replace('\\', '/');
+        var publicPathPrefix = _publicPathPrefix.Trim('/').Replace('\\', '/');
 
         if (string.IsNullOrWhiteSpace(publicPathPrefix))
         {
-            return "/" + storedFileName;
+            return "/" + normalizedStorageKey;
         }
 
-        return "/" + publicPathPrefix + "/" + storedFileName;
+        return "/" + publicPathPrefix + "/" + normalizedStorageKey;
     }
 
     private async Task<ValidatedImageFile> ValidateImageAsync(
@@ -74,7 +80,7 @@ public sealed class LocalFileStorage : IFileStorage
 
         if (string.IsNullOrWhiteSpace(fileName))
         {
-            throw new ArgumentException("File name is required.", nameof(fileName));
+            throw new ArgumentException("Informe uma foto valida.", nameof(fileName));
         }
 
         var extension = Path.GetExtension(fileName).ToLowerInvariant();
@@ -82,14 +88,14 @@ public sealed class LocalFileStorage : IFileStorage
 
         if (!allowedExtensions.Contains(extension))
         {
-            throw new InvalidOperationException("File extension is not allowed.");
+            throw new InvalidOperationException("A foto deve estar em JPG, JPEG, PNG, GIF ou WEBP.");
         }
 
         var bytes = await ReadContentAsync(content, _validationOptions.MaxFileSizeBytes, cancellationToken);
 
         if (!MatchesAllowedImageSignature(bytes, extension))
         {
-            throw new InvalidOperationException("File content does not match an allowed image format.");
+            throw new InvalidOperationException("O conteudo do arquivo nao corresponde ao formato da foto enviada.");
         }
 
         return new ValidatedImageFile(bytes, extension, GetContentType(extension), bytes.LongLength);
@@ -109,7 +115,7 @@ public sealed class LocalFileStorage : IFileStorage
     {
         if (maxFileSizeBytes <= 0)
         {
-            throw new InvalidOperationException("Maximum file size must be greater than zero.");
+            throw new InvalidOperationException("O limite de tamanho da foto deve ser maior que zero.");
         }
 
         using var memoryStream = new MemoryStream();
@@ -129,7 +135,7 @@ public sealed class LocalFileStorage : IFileStorage
 
             if (totalBytes > maxFileSizeBytes)
             {
-                throw new InvalidOperationException("File exceeds the maximum allowed size.");
+                throw new InvalidOperationException($"A foto deve ter no maximo {FormatFileSize(maxFileSizeBytes)}.");
             }
 
             await memoryStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
@@ -137,10 +143,22 @@ public sealed class LocalFileStorage : IFileStorage
 
         if (memoryStream.Length == 0)
         {
-            throw new InvalidOperationException("File content is empty.");
+            throw new InvalidOperationException("A foto enviada esta vazia.");
         }
 
         return memoryStream.ToArray();
+    }
+
+    private static string FormatFileSize(long bytes)
+    {
+        const long OneMegabyte = 1024 * 1024;
+
+        if (bytes >= OneMegabyte && bytes % OneMegabyte == 0)
+        {
+            return $"{bytes / OneMegabyte} MB";
+        }
+
+        return $"{bytes} bytes";
     }
 
     private static bool MatchesAllowedImageSignature(byte[] bytes, string extension)

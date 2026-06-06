@@ -15,9 +15,7 @@ namespace LeveInvestimentos.Web.Services.Users;
 
 public sealed class UserManagementService : IUserManagementService
 {
-    private static readonly Error InvalidProfilePhoto = new(
-        "Users.InvalidProfilePhoto",
-        "A foto enviada nao e valida.");
+    private const string InvalidProfilePhotoCode = "Users.InvalidProfilePhoto";
 
     private readonly IUserService _userService;
     private readonly IFileStorage _fileStorage;
@@ -43,24 +41,24 @@ public sealed class UserManagementService : IUserManagementService
         CreateUserViewModel model,
         CancellationToken cancellationToken = default)
     {
-        var profilePhotoPath = await SaveProfilePhotoAsync(model, cancellationToken);
-        if (profilePhotoPath is null)
+        var profilePhotoResult = await SaveProfilePhotoAsync(model, cancellationToken);
+        if (profilePhotoResult.IsFailure)
         {
-            return Result<UserDetailsDto>.Failure(InvalidProfilePhoto);
+            return Result<UserDetailsDto>.Failure(profilePhotoResult.Error);
         }
 
         return await _userService.CreateAsync(
-            ToCommand(managerId, model, profilePhotoPath),
+            ToCommand(managerId, model, profilePhotoResult.Value),
             cancellationToken);
     }
 
-    private async Task<string?> SaveProfilePhotoAsync(
+    private async Task<Result<string>> SaveProfilePhotoAsync(
         CreateUserViewModel model,
         CancellationToken cancellationToken)
     {
         if (model.ProfilePhoto is not { Length: > 0 } profilePhoto)
         {
-            return string.Empty;
+            return Result<string>.Success(string.Empty);
         }
 
         try
@@ -72,22 +70,29 @@ public sealed class UserManagementService : IUserManagementService
                 profilePhoto.ContentType,
                 cancellationToken);
 
-            return storedFile.PublicUrl;
+            return Result<string>.Success(storedFile.StorageKey);
         }
-        catch (InvalidOperationException)
+        catch (InvalidOperationException ex)
         {
-            return null;
+            return Result<string>.Failure(CreateInvalidProfilePhotoError(ex.Message));
         }
-        catch (ArgumentException)
+        catch (ArgumentException ex)
         {
-            return null;
+            return Result<string>.Failure(CreateInvalidProfilePhotoError(ex.Message));
         }
+    }
+
+    private static Error CreateInvalidProfilePhotoError(string message)
+    {
+        return new Error(
+            InvalidProfilePhotoCode,
+            string.IsNullOrWhiteSpace(message) ? "A foto enviada nao e valida." : message);
     }
 
     private static CreateUserCommand ToCommand(
         Guid managerId,
         CreateUserViewModel model,
-        string profilePhotoPath)
+        string profilePhotoStorageKey)
     {
         return new CreateUserCommand(
             model.FullName,
@@ -99,7 +104,7 @@ public sealed class UserManagementService : IUserManagementService
             model.State,
             model.LandlinePhone,
             model.MobilePhone,
-            profilePhotoPath,
+            profilePhotoStorageKey,
             model.Role == UserRole.Subordinate ? managerId : null,
             model.Role);
     }

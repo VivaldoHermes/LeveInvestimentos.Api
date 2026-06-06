@@ -2,6 +2,7 @@ using System.IO;
 using LeveInvestimentos.Core.Abstractions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace LeveInvestimentos.Infrastructure.Files;
 
@@ -12,32 +13,40 @@ public static class FileStorageServiceCollectionExtensions
         IConfiguration configuration,
         string contentRootPath)
     {
-        services.Configure<LocalFileStorageOptions>(
-            configuration.GetSection(LocalFileStorageOptions.SectionName));
         services.Configure<ImageFileValidationOptions>(
             configuration.GetSection(ImageFileValidationOptions.SectionName));
 
-        services.PostConfigure<LocalFileStorageOptions>(options =>
-            NormalizeUploadRootPath(options, contentRootPath));
+        var uploadRootPath = NormalizeUploadRootPath(
+            configuration["FileStorage:UploadRootPath"],
+            contentRootPath);
+        var publicPathPrefix = configuration["FileStorage:PublicPathPrefix"] ?? "/uploads";
 
-        services.AddScoped<IFileStorage, LocalFileStorage>();
+        services.AddScoped<LocalFileStorage>(provider =>
+            new LocalFileStorage(
+                uploadRootPath,
+                publicPathPrefix,
+                provider.GetRequiredService<IOptions<ImageFileValidationOptions>>()));
+
+        services.AddScoped<IFileStorage>(provider => provider.GetRequiredService<LocalFileStorage>());
+        services.AddScoped<IFileUrlResolver>(provider => provider.GetRequiredService<LocalFileStorage>());
 
         return services;
     }
 
-    private static void NormalizeUploadRootPath(
-        LocalFileStorageOptions options,
+    private static string NormalizeUploadRootPath(
+        string? uploadRootPath,
         string contentRootPath)
     {
-        if (string.IsNullOrWhiteSpace(options.UploadRootPath))
+        if (string.IsNullOrWhiteSpace(uploadRootPath))
         {
-            options.UploadRootPath = Path.Combine(contentRootPath, "wwwroot", "uploads");
-            return;
+            return Path.Combine(contentRootPath, "wwwroot", "uploads");
         }
 
-        if (!Path.IsPathRooted(options.UploadRootPath))
+        if (!Path.IsPathRooted(uploadRootPath))
         {
-            options.UploadRootPath = Path.Combine(contentRootPath, options.UploadRootPath);
+            return Path.Combine(contentRootPath, uploadRootPath);
         }
+
+        return uploadRootPath;
     }
 }

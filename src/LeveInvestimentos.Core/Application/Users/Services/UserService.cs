@@ -50,7 +50,7 @@ public sealed class UserService : IUserService
                     command.State),
                 command.LandlinePhone,
                 command.MobilePhone,
-                command.ProfilePhotoPath,
+                command.ProfilePhotoStorageKey,
                 command.Role,
                 DateOnly.FromDateTime(DateTime.UtcNow),
                 command.ManagerId);
@@ -156,7 +156,7 @@ public sealed class UserService : IUserService
             user.Address.State,
             user.LandlinePhone.Value,
             user.MobilePhone.Value,
-            user.ProfilePhotoPath,
+            user.ProfilePhotoStorageKey,
             user.MustChangePassword);
     }
 }

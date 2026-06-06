@@ -17,5 +17,5 @@ public sealed record UserDetailsDto(
     string State,
     string LandlinePhone,
     string MobilePhone,
-    string ProfilePhotoPath,
+    string ProfilePhotoStorageKey,
     bool MustChangePassword);

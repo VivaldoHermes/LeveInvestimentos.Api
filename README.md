@@ -30,15 +30,16 @@ Para rodar a aplicacao:
 dotnet run --project src\LeveInvestimentos.Web\LeveInvestimentos.Web.csproj
 ```
 
-Comandos uteis:
-
-```powershell
-docker compose ps
-docker compose logs sqlserver
-docker compose down
-```
-
 ## Primeiro Acesso
 
 E-mail: ti@leveinvestimentos.com.br
 Senha: teste123
+
+## Arquitetura em Camadas
+
+![Arquitetura em camadas](docs/img1.jpg)
+
+## Pipeline HTTP (toda requisição)
+
+![Pipeline HTTP](docs/img2.jpg)
+

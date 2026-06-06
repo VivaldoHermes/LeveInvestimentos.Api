@@ -13,6 +13,6 @@ public sealed record CreateUserCommand(
     string State,
     string LandlinePhone,
     string MobilePhone,
-    string ProfilePhotoPath,
+    string ProfilePhotoStorageKey,
     Guid? ManagerId,
     UserRole Role);
